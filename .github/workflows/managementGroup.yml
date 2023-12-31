@@ -27,6 +27,7 @@ jobs:
 
   prod:
     needs: tst
+    if: github.ref == 'refs/heads/main'
     uses: ./.github/workflows/reuse-managementGroup.yml
     with:
       template-file: $mainBicepFile

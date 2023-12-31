@@ -7,7 +7,6 @@ param childManagementGroups array = [
   'playground'
 ]
 
-
 module mgmtGroups '../bicep-base/managementGroups.bicep' = [for item in childManagementGroups: {
   name: 'mgmt-${item}'
   scope: tenant()
