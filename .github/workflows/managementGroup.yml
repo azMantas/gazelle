@@ -1,4 +1,9 @@
 name: managementGroups
+
+env:
+  dynamicEnv: ${{ github.ref != 'refs/heads/main' && 'tst' || 'prod' }}
+
+
 on:
   push:
     branches:
@@ -13,7 +18,7 @@ permissions:
 jobs:
   managementGroup:
     runs-on: ubuntu-latest
-    environment: prod
+    environment: ${{ vars.dynamicEnv }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
