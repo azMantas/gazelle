@@ -14,7 +14,7 @@ permissions:
 jobs:
   linter: 
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/heads/tst/')
+    if: github.ref == 'refs/heads/tst/**'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -23,7 +23,10 @@ jobs:
         uses: azure/cli@v1
         with:
           inlineScript: |
-            az bicep build -f ./managementGroups/bicep-main/managementGroups.bicep
+            for file in ./managementGroups/*.bicep
+            do
+              az bicep build -f "$file"
+            done
 
   managementGroup:
     needs: linter
