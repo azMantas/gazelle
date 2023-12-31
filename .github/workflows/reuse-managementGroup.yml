@@ -27,6 +27,7 @@ on:
 jobs:
   managementGroup:
     runs-on: ubuntu-latest
+    environment: ${{ github.ref != 'refs/heads/main' && 'tst' || 'prod' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2

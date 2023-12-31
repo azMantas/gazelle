@@ -14,7 +14,6 @@ permissions:
   contents: read
 
 jobs:
-  environment: tst
   linter: 
     uses: ./.github/workflows/reuse-linter.yml
     with:
@@ -22,6 +21,12 @@ jobs:
 
   tst:
     needs: linter
+    uses: ./.github/workflows/reuse-managementGroup.yml
+    with:
+      template-file: $mainBicepFile
+
+  prod:
+    needs: tst
     uses: ./.github/workflows/reuse-managementGroup.yml
     with:
       template-file: $mainBicepFile
