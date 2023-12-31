@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - tst/**
+      - main
   
   pull_request_review:
     types: 
