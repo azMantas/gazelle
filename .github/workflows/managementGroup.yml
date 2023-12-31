@@ -14,37 +14,14 @@ permissions:
   contents: read
 
 jobs:
+  environment: tst
   linter: 
     uses: ./.github/workflows/reuse-linter.yml
     with:
-      bicepFilePath: ./managementGroups/bicep-main/managementGroups.bicep
+      bicepFilePath: $mainBicepFile
 
-
-  managementGroup:
+  tst:
     needs: linter
-    runs-on: ubuntu-latest
-    environment: ${{ github.ref != 'refs/heads/main' && 'tst' || 'prod' }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Azure login
-        uses: azure/login@v1
-        with:
-          client-id: ${{ secrets.PLATFORM_IDENTITY_CLIENT_ID}}
-          tenant-id: ${{ secrets.TENANT_ID }}
-          allow-no-subscriptions: true
-          enable-AzPSSession: true
-
-      - name: deploy management groups
-        uses: azure/cli@v1
-        with:
-          inlineScript: |
-            az deployment mg create \
-             --name 'bigBang' \
-             --location 'westeurope' \
-             --management-group-id ${{ secrets.TENANT_ID }} \
-             --template-file $mainBicepFile \
-             --parameters ./managementGroups/param/managementGroups.bicepparam \
-             --parameters environment=${{ vars.ENVIRONMENT }} \
-             --parameters topLevelManagementGroupname=${{ vars.topLevelManagementGroupname}}
+    uses: ./.github/workflows/reuse-managementGroup.yml
+    with:
+      template-file: $mainBicepFile
