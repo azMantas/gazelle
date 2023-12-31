@@ -4,14 +4,14 @@ on:
   push:
     branches:
       - tst/**
-    paths:
-      - 'managementGroups/**'
+    # paths:
+    #   - 'managementGroups/**'
 
   pull_request:
     branches:
       - main
-    paths:
-      - 'managementGroups/**'
+    # paths:
+    #   - 'managementGroups/**'
 
   workflow_dispatch:
 
