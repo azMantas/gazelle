@@ -1,14 +1,14 @@
 name: managementGroups
 
 on:
+  pull_request_review:
+    types: 
+      - submitted
   push:
     branches:
       - tst/**
       - main
   
-  pull_request_review:
-    types: 
-      - submitted
 
   workflow_dispatch:
 
