@@ -8,10 +8,6 @@ on:
     #   - 'managementGroups/**'
   
   pull_request:
-    types: closed
-    # paths:
-    #   - 'managementGroups/**'
-
   workflow_dispatch:
 
 permissions:
