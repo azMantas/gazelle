@@ -4,8 +4,15 @@ on:
   push:
     branches:
       - tst/**
-    paths:
-      - 'managementGroups/**'
+    # paths:
+    #   - 'managementGroups/**'
+
+  pull_request:
+    branches:
+      - main
+    # paths:
+    #   - 'managementGroups/**'
+
   workflow_dispatch:
 
 permissions:
@@ -13,13 +20,15 @@ permissions:
   contents: read
 
 jobs:
-  linter: 
+  linter:
+    if: startsWith(github.ref, 'refs/heads/tst/') 
     uses: ./.github/workflows/reuse-linter.yml
     with:
       bicepFilePath: ./managementGroups/bicep-main/managementGroups.bicep
 
   tst:
     needs: linter
+    if: startsWith(github.ref, 'refs/heads/tst/') 
     uses: ./.github/workflows/reuse-managementGroup.yml
     with:
       template-file: ./managementGroups/bicep-main/managementGroups.bicep
