@@ -2,6 +2,7 @@ targetScope = 'managementGroup'
 
 param assignments object
 param environment string
+param location string 
 param utc string = utcNow()
 
 var uniqueValue = take(uniqueString(utc), 5)
@@ -10,6 +11,7 @@ module policyAssignment '../bicep-base/policyAssignments.bicep' = [for item in i
   name: 'assignment-${item.key}-${assignments.name}-${uniqueValue}'
   scope: managementGroup('${item.key}-${environment}')
   params: {
+    location: location
     policyDefinitionId: assignments.policyDefinitionId
     policyDisplayName: assignments.displayName
     name: assignments.name

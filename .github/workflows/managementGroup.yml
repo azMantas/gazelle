@@ -1,9 +1,11 @@
 name: managementGroups
 
+env:
+  mainBicepFile: ./managementGroups/bicep-main/managementGroups.bicep
+
 on:
   push:
     branches:
-      - main
       - tst/**
   workflow_dispatch:
 
@@ -18,11 +20,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       
-      - name: linter
+      - name: Run Bicep Linter
         uses: azure/cli@v1
         with:
           inlineScript: |
-            az bicep build -f ./managementGroups/bicep-main/managementGroups.bicep
+            az bicep build -f $mainBicepFile
 
   managementGroup:
     needs: linter
@@ -40,7 +42,7 @@ jobs:
           allow-no-subscriptions: true
           enable-AzPSSession: true
 
-      - name: mgmt hierarchy
+      - name: deploy management groups
         uses: azure/cli@v1
         with:
           inlineScript: |
@@ -48,7 +50,7 @@ jobs:
              --name 'bigBang' \
              --location 'westeurope' \
              --management-group-id ${{ secrets.TENANT_ID }} \
-             --template-file ./managementGroups/bicep-main/managementGroups.bicep \
+             --template-file $mainBicepFile \
              --parameters ./managementGroups/param/managementGroups.bicepparam \
              --parameters environment=${{ vars.ENVIRONMENT }} \
              --parameters topLevelManagementGroupname=${{ vars.topLevelManagementGroupname}}

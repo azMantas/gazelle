@@ -1,8 +1,9 @@
 targetScope = 'managementGroup'
 
+#disable-next-line no-unused-params
 param topLevelManagementGroupName string
 param environment string
-
+param location string
 param definitions array
 param setDefinitions array
 param assignments array
@@ -33,6 +34,7 @@ module assignment '../bicep-nested/policyAssignments-loop.bicep' = [for item in 
   name: 'assignment-${item.name}-${uniqueValue}'
   dependsOn: policySetDefinition
   params: {
+    location: location
     assignments: item
     environment: environment
   }

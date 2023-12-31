@@ -1,6 +1,7 @@
 targetScope = 'managementGroup'
 
 param name string
+param location string
 param policyDisplayName string
 param policyEnforcmentMode string = 'Default'
 param policyNonScopes array = []
@@ -13,7 +14,7 @@ resource policyAssignment 'Microsoft.Authorization/policyAssignments@2023-04-01'
   identity: {
     type: 'SystemAssigned'
   }
-  location: 'westeurope'
+  location: location
   properties: {
     displayName: policyDisplayName
     enforcementMode: policyEnforcmentMode
