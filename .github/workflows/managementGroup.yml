@@ -17,6 +17,8 @@ jobs:
   linter:
     if: startsWith(github.ref, 'refs/heads/tst/') 
     uses: ./.github/workflows/reuse-linter.yml
+    with:
+      bicepFilePath: ./managementGroups/bicep-main/managementGroups.bicep
 
   tst:
     needs: linter
