@@ -35,4 +35,4 @@ jobs:
              --location 'westeurope' \
              --management-group-id 'ae8377f0-95bf-4b28-a5d1-0fc08008709f' \
              --template-file ./managementGroups/bicep-main/managementGroups.bicep \
-             --parameters ./managementGroups/param/managementGroups.bicepparam 
+             --parameters ./managementGroups/param/managementGroups.bicepparam
