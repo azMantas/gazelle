@@ -3,7 +3,7 @@
     "core": {
       "rules": {
         "no-unused-params": {
-          "level": "warning"
+          "level": "error"
         }
       }
     }

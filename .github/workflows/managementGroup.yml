@@ -12,7 +12,20 @@ permissions:
   contents: read
 
 jobs:
+  linter: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      
+      - name: linter
+        uses: azure/cli@v1
+        with:
+          inlineScript: |
+            az bicep build -f ./managementGroups/bicep-main/managementGroups.bicep
+
   managementGroup:
+    needs: linter
     runs-on: ubuntu-latest
     environment: ${{ github.ref != 'refs/heads/main' && 'tst' || 'prod' }}
     steps:
