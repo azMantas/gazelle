@@ -34,7 +34,6 @@ jobs:
     secrets: inherit
 
   prod:
-    needs: tst
     if: github.event.review.state == 'approved'
     uses: ./.github/workflows/reuse-managementGroup.yml
     with:
