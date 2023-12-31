@@ -14,7 +14,7 @@ on:
             description: 'location for azure resources'
             type: string
         template-file:
-            required: true
+            required: false
             default: ./managementGroups/bicep-main/managementGroups.bicep
             description: 'bicep template file path'
             type: string
