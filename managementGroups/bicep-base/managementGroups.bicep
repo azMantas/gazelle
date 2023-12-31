@@ -3,7 +3,7 @@ targetScope = 'tenant'
 param managementGroupName string
 param parentManagementGroupId string
 
-resource managementGroup 'Microsoft.Management/managementGroups@2020-05-01' = {
+resource managementGroup 'Microsoft.Management/managementGroups@2023-04-01' = {
   name: managementGroupName
   properties: {
     displayName: managementGroupName
