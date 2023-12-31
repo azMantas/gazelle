@@ -25,6 +25,7 @@ jobs:
             az bicep build **/*.bicep
 
   managementGroup:
+    needs: linter
     runs-on: ubuntu-latest
     environment: ${{ github.ref != 'refs/heads/main' && 'tst' || 'prod' }}
     steps:
