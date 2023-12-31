@@ -6,6 +6,7 @@ param childManagementGroups array = [
   'platform'
   'playground'
 ]
+param unsedvalue string
 
 
 module mgmtGroups '../bicep-base/managementGroups.bicep' = [for item in childManagementGroups: {
