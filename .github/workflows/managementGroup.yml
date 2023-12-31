@@ -20,18 +20,19 @@ jobs:
       bicepFilePath: ./managementGroups/bicep-main/managementGroups.bicep
 
   tst:
-    needs: linter
+    # needs: linter
     uses: ./.github/workflows/reuse-managementGroup.yml
     with:
       template-file: $mainBicepFile
-      client-id: ${{ secrets.PLATFORM_IDENTITY_CLIENT_ID}}
-      tenant-id: ${{ secrets.TENANT_ID }}
-      
+    secrets:
+      client-Id: ${{ secrets.PLATFORM_IDENTITY_CLIENT_ID}}
+      tenant-Id: ${{ secrets.TENANT_ID }}
 
 
-  prod:
-    needs: tst
-    uses: ./.github/workflows/reuse-managementGroup.yml
-    with:
-      template-file: $mainBicepFile
+
+  # prod:
+  #   needs: tst
+  #   uses: ./.github/workflows/reuse-managementGroup.yml
+  #   with:
+  #     template-file: $mainBicepFile
 
