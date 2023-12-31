@@ -28,9 +28,8 @@ jobs:
     secrets: inherit
 
   prod:
-    
     needs: tst
-    if: github.event.pull_request.merged == true
+    if: github.event_name == 'pull_request' 
     uses: ./.github/workflows/reuse-managementGroup.yml
     secrets: inherit
 
