@@ -33,4 +33,3 @@ jobs:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     uses: ./.github/workflows/reuse-managementGroup.yml
     secrets: inherit
-
