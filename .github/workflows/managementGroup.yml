@@ -1,15 +1,14 @@
 name: managementGroups
 
 on:
-  pull_request_review:
-    types: 
-      - submitted
+  pull_request:
+    branches:
+      -main
   # push:
   #   branches:
   #     - tst/**
   #     - main
   
-
   workflow_dispatch:
 
 permissions:
@@ -20,22 +19,16 @@ jobs:
   # linter:
   #   if: startsWith(github.ref, 'refs/heads/tst/') 
   #   uses: ./.github/workflows/reuse-linter.yml
-  #   with:
-  #     bicepFilePath: ./managementGroups/bicep-main/managementGroups.bicep
 
   tst:
     # needs: linter
     if: startsWith(github.ref, 'refs/heads/tst/') 
     uses: ./.github/workflows/reuse-managementGroup.yml
-    with:
-      template-file: ./managementGroups/bicep-main/managementGroups.bicep
     secrets: inherit
 
   prod:
     # needs: tst
     # if: github.event.review.state == 'approved'
     uses: ./.github/workflows/reuse-managementGroup.yml
-    with:
-      template-file: ./managementGroups/bicep-main/managementGroups.bicep
     secrets: inherit
 
