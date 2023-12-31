@@ -4,10 +4,10 @@ on:
   pull_request_review:
     types: 
       - submitted
-  push:
-    branches:
-      - tst/**
-      - main
+  # push:
+  #   branches:
+  #     - tst/**
+  #     - main
   
 
   workflow_dispatch:
