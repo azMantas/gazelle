@@ -6,7 +6,6 @@ env:
 on:
   push:
     branches:
-      - main
       - tst/**
   workflow_dispatch:
 
@@ -44,7 +43,7 @@ jobs:
           allow-no-subscriptions: true
           enable-AzPSSession: true
 
-      - name: mgmt hierarchy
+      - name: deploy management groups
         uses: azure/cli@v1
         with:
           inlineScript: |
