@@ -6,11 +6,14 @@ on:
       - tst/**
     paths:
       - 'managementGroups/**'
-  workflow_dispatch:
 
-permissions:
-  id-token: write
-  contents: read
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'managementGroups/**'
+
+  workflow_dispatch:
 
 jobs:
   linter: 
@@ -19,6 +22,7 @@ jobs:
       bicepFilePath: ./managementGroups/bicep-main/managementGroups.bicep
 
   tst:
+    name: tst
     needs: linter
     uses: ./.github/workflows/reuse-managementGroup.yml
     with:
@@ -26,8 +30,8 @@ jobs:
     secrets: inherit
 
   prod:
+    name: prod
     needs: tst
-    if: github.ref == 'refs/heads/main'
     uses: ./.github/workflows/reuse-managementGroup.yml
     with:
       template-file: $mainBicepFile
