@@ -6,10 +6,9 @@ on:
       - tst/**
     # paths:
     #   - 'managementGroups/**'
-
+  
   pull_request:
-    branches:
-      - main
+    types: closed
     # paths:
     #   - 'managementGroups/**'
 
