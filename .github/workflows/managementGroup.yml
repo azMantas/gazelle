@@ -6,10 +6,9 @@ on:
       - tst/**
     # paths:
     #   - 'managementGroups/**'
-
+  
   pull_request:
-    branches:
-      - main
+    types: closed
     # paths:
     #   - 'managementGroups/**'
 
@@ -36,8 +35,7 @@ jobs:
 
   prod:
     needs: tst
-    if: github.ref == 'refs/heads/main'
+    if: github.event.review.state == 'approved'
     uses: ./.github/workflows/reuse-managementGroup.yml
     with:
       template-file: $mainBicepFile
-
