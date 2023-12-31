@@ -1,0 +1,38 @@
+name: managementGroups
+on:
+  push:
+    branches:
+      - main
+      - tst/**
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  managementGroup:
+    runs-on: ubuntu-latest
+    environment:  ${{ vars.environment }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.PLATFORM_IDENTITY_CLIENT_ID}}
+          tenant-id: ${{ secrets.TENANT_ID }}
+          allow-no-subscriptions: true
+          enable-AzPSSession: true
+
+      - name: mgmt hierarchy
+        uses: azure/cli@v1
+        with:
+          inlineScript: |
+            az deployment mg create \
+             --name 'bigBang' \
+             --location 'westeurope' \
+             --management-group-id 'ae8377f0-95bf-4b28-a5d1-0fc08008709f' \
+             --template-file ./managementGroups/bicep-main/managementGroups.bicep \
+             --parameters ./managementGroups/param/managementGroups.bicepparam 

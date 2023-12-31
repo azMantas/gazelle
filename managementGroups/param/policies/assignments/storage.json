@@ -1,0 +1,15 @@
+{
+  "policyDefinitionId": "{{topLevel}}/providers/Microsoft.Authorization/policySetDefinitions/storagePolicies",
+  "name": "storagePolicies",
+  "displayName": "storage policies",
+  "scope": {
+    "platform": {
+      "parameters": {},
+      "enforcementMode": "Default"
+    },
+    "playground": {
+      "parameters": {},
+      "enforcementMode": "DoNotEnforce"
+    }
+  }
+}

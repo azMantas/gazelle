@@ -1,0 +1,15 @@
+{
+  "policyDefinitionId": "/providers/Microsoft.Authorization/policySetDefinitions/e77fc0b3-f7e9-4c58-bc13-cb753ed8e46e",
+  "name": "builtIn",
+  "displayName": "builtIn",
+  "scope": {
+    "platform": {
+      "parameters": {},
+      "enforcementMode": "Default"
+    },
+    "playground": {
+      "parameters": {},
+      "enforcementMode": "DoNotEnforce"
+    }
+  }
+}
