@@ -2,8 +2,7 @@ name: managementGroups
 
 on:
   pull_request:
-    branches:
-      -main
+
   # push:
   #   branches:
   #     - tst/**
