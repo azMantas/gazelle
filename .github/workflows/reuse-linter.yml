@@ -1,0 +1,22 @@
+name: linter workflow
+
+on:
+  workflow_call:
+    inputs:
+        bicepFilePath:
+            required: true
+            type: string
+            description: 'The path to the bicep file to be linted'
+
+jobs:
+  linter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      
+      - name: Run Bicep Linter
+        uses: azure/cli@v1
+        with:
+          inlineScript: |
+            az bicep build -f ${{ inputs.bicepFilePath }}

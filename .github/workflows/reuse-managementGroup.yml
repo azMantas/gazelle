@@ -1,0 +1,63 @@
+name: management group deployment
+
+on:
+  workflow_call:
+    inputs:
+        name:
+            required: false
+            description: 'Azudre deployment name'
+            type: string
+            default: 'management-groups'
+        location:
+            required: false
+            default: 'westeurope'
+            description: 'location for azure resources'
+            type: string
+        template-file:
+            required: true
+            default: ./managementGroups/bicep-main/managementGroups.bicep
+            description: 'bicep template file path'
+            type: string
+        parameters:
+            required: false
+            default: ./managementGroups/param/managementGroups.bicepparam
+            description: 'bicep parameters file path'
+            type: string
+    # secrets:
+    #   client-id:
+    #     required: true
+    #     description: 'Managed identity client id'
+    #   tenant-id:
+    #     required: true
+    #     description: 'Azure tenant ID'
+
+
+jobs:
+  managementGroup:
+    runs-on: ubuntu-latest
+    environment: tst
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.PLATFORM_IDENTITY_CLIENT_ID}}
+          tenant-id: ${{ secrets.TENANT_ID }}
+          allow-no-subscriptions: true
+          enable-AzPSSession: true
+
+      - name: deploy management groups
+        uses: azure/cli@v1
+        with:
+            inlineScript: |
+              az deployment mg create \
+               --name ${{ inputs.name }} \
+               --location ${{ inputs.location }} \
+               --management-group-id ${{ secrets.TENANT_ID }} \
+               --template-file ${{inputs.template-file}} \
+               --parameters ${{ inputs.parameters}} \
+               --parameters environment=${{ vars.ENVIRONMENT }} \
+               --parameters topLevelManagementGroupname=${{ vars.topLevelManagementGroupname}}
+  

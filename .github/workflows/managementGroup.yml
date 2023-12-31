@@ -1,12 +1,11 @@
 name: managementGroups
 
-env:
-  mainBicepFile: ./managementGroups/bicep-main/managementGroups.bicep
-
 on:
   push:
     branches:
       - tst/**
+    paths:
+      - 'managementGroups/**'
   workflow_dispatch:
 
 permissions:
@@ -15,43 +14,21 @@ permissions:
 
 jobs:
   linter: 
-    runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/heads/tst/')
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      
-      - name: Run Bicep Linter
-        uses: azure/cli@v1
-        with:
-          inlineScript: |
-            az bicep build -f $mainBicepFile
+    uses: ./.github/workflows/reuse-linter.yml
+    with:
+      bicepFilePath: ./managementGroups/bicep-main/managementGroups.bicep
 
-  managementGroup:
+  tst:
     needs: linter
-    runs-on: ubuntu-latest
-    environment: ${{ github.ref != 'refs/heads/main' && 'tst' || 'prod' }}
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+    uses: ./.github/workflows/reuse-managementGroup.yml
+    with:
+      template-file: ./managementGroups/bicep-main/managementGroups.bicep
+    secrets: inherit
 
-      - name: Azure login
-        uses: azure/login@v1
-        with:
-          client-id: ${{ secrets.PLATFORM_IDENTITY_CLIENT_ID}}
-          tenant-id: ${{ secrets.TENANT_ID }}
-          allow-no-subscriptions: true
-          enable-AzPSSession: true
+  prod:
+    needs: tst
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/reuse-managementGroup.yml
+    with:
+      template-file: $mainBicepFile
 
-      - name: deploy management groups
-        uses: azure/cli@v1
-        with:
-          inlineScript: |
-            az deployment mg create \
-             --name 'bigBang' \
-             --location 'westeurope' \
-             --management-group-id ${{ secrets.TENANT_ID }} \
-             --template-file $mainBicepFile \
-             --parameters ./managementGroups/param/managementGroups.bicepparam \
-             --parameters environment=${{ vars.ENVIRONMENT }} \
-             --parameters topLevelManagementGroupname=${{ vars.topLevelManagementGroupname}}
