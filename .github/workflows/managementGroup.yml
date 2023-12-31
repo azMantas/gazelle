@@ -1,9 +1,5 @@
 name: managementGroups
 
-env:
-  dynamicEnv: ${{ github.ref != 'refs/heads/main' && 'tst' || 'prod' }}
-
-
 on:
   push:
     branches:
@@ -18,13 +14,10 @@ permissions:
 jobs:
   managementGroup:
     runs-on: ubuntu-latest
-    environment: ${{ vars.dynamicEnv }}
+    environment: ${{ github.ref != 'refs/heads/main' && 'tst' || 'prod' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: output
-        run: |
-          echo $dynamicEnv
 
       - name: Azure login
         uses: azure/login@v1
