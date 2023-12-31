@@ -25,10 +25,10 @@ on:
             type: string
     secrets:
       client-id:
-        required: false
+        required: true
         description: 'Managed identity client id'
       tenant-id:
-        required: false
+        required: true
         description: 'Azure tenant ID'
 
 
@@ -43,8 +43,8 @@ jobs:
       - name: Azure login
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.PLATFORM_IDENTITY_CLIENT_ID}}
-          tenant-id: ${{ secrets.TENANT_ID }}
+          client-id: ${{ secrets.client-id }}
+          tenant-id: ${{ secrets.tenant-id }}
           allow-no-subscriptions: true
           enable-AzPSSession: true
 
