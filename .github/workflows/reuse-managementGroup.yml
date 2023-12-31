@@ -1,4 +1,4 @@
-name: management group deployment
+name: reusable - management groups
 
 on:
   workflow_call:
