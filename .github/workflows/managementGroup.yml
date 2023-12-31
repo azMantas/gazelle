@@ -14,7 +14,7 @@ permissions:
 jobs:
   linter: 
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/tst'
+    if: github.ref == 'refs/heads/tst/**'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
