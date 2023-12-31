@@ -17,7 +17,7 @@ permissions:
 jobs:
   managementGroup:
     runs-on: ubuntu-latest
-    environment: tst
+    environment: ${{ env.dynamicEnv }}
     # environment: ${{ vars.dynamicEnv }}
     steps:
       - name: Checkout
