@@ -1,13 +1,14 @@
 name: managementGroups
 
 on:
-  pull_request:
-
   push:
     branches:
       - tst/**
   
   workflow_dispatch:
+
+  pull_request:
+    types: [closed]
 
 permissions:
   id-token: write
@@ -29,7 +30,7 @@ jobs:
   prod:
     
     needs: tst
-    # if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true
     uses: ./.github/workflows/reuse-managementGroup.yml
     secrets: inherit
 
