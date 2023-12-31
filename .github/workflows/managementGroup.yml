@@ -25,8 +25,10 @@ jobs:
     with:
       template-file: $mainBicepFile
 
+
   prod:
     needs: tst
     uses: ./.github/workflows/reuse-managementGroup.yml
     with:
       template-file: $mainBicepFile
+
