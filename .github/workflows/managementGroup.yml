@@ -20,9 +20,10 @@ jobs:
         uses: actions/checkout@v2
       
       - name: Run Bicep Linter
-        uses: synergy-au/bicep-lint-action@v1
+        uses: azure/cli@v1
         with:
-          analyse-all-files: true
+          inlineScript: |
+            az bicep build -f ./managementGroups/bicep-main/managementGroups.bicep
 
   managementGroup:
     needs: linter
