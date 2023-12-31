@@ -4,12 +4,10 @@ on:
   push:
     branches:
       - tst/**
-      - main
-    # paths:
-    #   - 'managementGroups/**'
   
   pull_request_review:
-    types: submitted
+    types: 
+      - submitted
 
   workflow_dispatch:
 
@@ -33,7 +31,10 @@ jobs:
     secrets: inherit
 
   prod:
+    needs: tst
     if: github.event_name == 'pull_request_review' && github.event.review.state == 'approved'
     uses: ./.github/workflows/reuse-managementGroup.yml
     with:
-      template-file: $mainBicepFile
+      template-file: ./managementGroups/bicep-main/managementGroups.bicep
+    secrets: inherit
+
