@@ -3,7 +3,6 @@ name: managementGroups
 env:
   dynamicEnv: ${{ github.ref != 'refs/heads/main' && 'tst' || 'prod' }}
 
-
 on:
   push:
     branches:
