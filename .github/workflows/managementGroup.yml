@@ -7,7 +7,9 @@ on:
     # paths:
     #   - 'managementGroups/**'
   
-  pull_request:
+  pull_request_review:
+    types: submitted
+
   workflow_dispatch:
 
 permissions:
@@ -30,7 +32,7 @@ jobs:
     secrets: inherit
 
   prod:
-    if: github.event.review.state == 'approved'
+    if: github.event.review.state == 'APPROVED'
     uses: ./.github/workflows/reuse-managementGroup.yml
     with:
       template-file: $mainBicepFile
