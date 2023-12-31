@@ -15,17 +15,10 @@ permissions:
 
 jobs:
   linter: 
-    runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/heads/tst/')
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      
-      - name: Run Bicep Linter
-        uses: azure/cli@v1
-        with:
-          inlineScript: |
-            az bicep build -f $mainBicepFile
+    uses: ./.github/workflows/reuse-linter.yml
+    with:
+      bicepFilePath: ./managementGroups/bicep-main/managementGroups.bicep
+
 
   managementGroup:
     needs: linter
