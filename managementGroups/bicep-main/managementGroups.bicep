@@ -1,7 +1,7 @@
 targetScope = 'managementGroup'
 
-param topLevelManagementGroupname string = 'gazelle'
-param environment string = 'tst'
+param topLevelManagementGroupname string = ''
+param environment string = ''
 param childManagementGroups array = [
   'platform'
   'playground'
