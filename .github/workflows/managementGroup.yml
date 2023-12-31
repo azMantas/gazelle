@@ -17,7 +17,7 @@ jobs:
   linter: 
     uses: ./.github/workflows/reuse-linter.yml
     with:
-      bicepFilePath: $mainBicepFile
+      bicepFilePath: ./managementGroups/bicep-main/managementGroups.bicep
 
   tst:
     needs: linter
