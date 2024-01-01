@@ -36,7 +36,7 @@ on:
 jobs:
   managementGroup:
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment}}
+    environment: ${{ inputs.environment }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -59,8 +59,8 @@ jobs:
               az deployment mg create \
                --name ${{ inputs.name }} \
                --location ${{ inputs.location }} \
-               --management-group-id ${{ secrets.TENANT_ID }} \
+               --management-group-id ae8377f0-95bf-4b28-a5d1-0fc08008709f \
                --template-file ${{inputs.template-file}} \
                --parameters ${{ inputs.parameters}} \
-               --parameters environment=${{ vars.ENVIRONMENT }} \
+               --parameters environment=${{ inputs.environment }} \
                --parameters topLevelManagementGroupname=${{ vars.topLevelManagementGroupname}}
