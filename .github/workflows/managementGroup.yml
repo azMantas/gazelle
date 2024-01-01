@@ -1,8 +1,13 @@
 name: managementGroups
 
 on:
-  pull_request:
-    types: [ closed ]
+  push:
+    branches:
+      - tst/**
+
+  pull_request_target:
+    types:
+      - closed
   
   workflow_dispatch:
 
@@ -19,12 +24,13 @@ jobs:
       bicepFilePath: ./managementGroups/bicep-main/managementGroups.bicep
 
   tst:
-    # needs: linter
+    needs: linter
     if: startsWith(github.ref, 'refs/heads/tst/') 
     uses: ./.github/workflows/reuse-managementGroup.yml
     secrets: inherit
 
   prod:
+    needs: tst
     if: github.event.pull_request.merged == true
     uses: ./.github/workflows/reuse-managementGroup.yml
     secrets: inherit
