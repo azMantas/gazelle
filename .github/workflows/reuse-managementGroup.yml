@@ -27,13 +27,11 @@ on:
             default: ./managementGroups/param/managementGroups.bicepparam
             description: 'bicep parameters file path'
             type: string
-    # secrets:
-    #   client-id:
-    #     required: true
-    #     description: 'Managed identity client id'
-    #   tenant-id:
-    #     required: true
-    #     description: 'Azure tenant ID'
+    secrets:
+      PLATFORM_IDENTITY_CLIENT_ID:
+        required: true
+      TENANT_ID:
+        required: true
 
 jobs:
   managementGroup:
