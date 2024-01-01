@@ -3,6 +3,10 @@ name: reusable - management groups
 on:
   workflow_call:
     inputs:
+        environment:
+            required: true
+            description: 'environment name'
+            type: string
         name:
             required: false
             description: 'Azudre deployment name'
@@ -34,8 +38,7 @@ on:
 jobs:
   managementGroup:
     runs-on: ubuntu-latest
-    environment: 
-      name: ${{ github.ref != 'refs/heads/main' && 'tst' || 'prod' }}
+    environment: ${{ inputs.environment}}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
