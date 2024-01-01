@@ -4,6 +4,10 @@ on:
   pull_request:
     types: [ closed ]
   
+  push: 
+    branches:
+      - tst/**
+      
   workflow_dispatch:
 
 
@@ -19,7 +23,7 @@ jobs:
       bicepFilePath: ./managementGroups/bicep-main/managementGroups.bicep
 
   tst:
-    # needs: linter
+    needs: linter
     if: startsWith(github.ref, 'refs/heads/tst/') 
     uses: ./.github/workflows/reuse-managementGroup.yml
     secrets: inherit

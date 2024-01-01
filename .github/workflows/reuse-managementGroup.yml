@@ -47,16 +47,16 @@ jobs:
           allow-no-subscriptions: true
           enable-AzPSSession: true
 
-      # - name: deploy management groups
-      #   uses: azure/cli@v1
-      #   with:
-      #       inlineScript: |
-      #         az deployment mg create \
-      #          --name ${{ inputs.name }} \
-      #          --location ${{ inputs.location }} \
-      #          --management-group-id ${{ secrets.TENANT_ID }} \
-      #          --template-file ${{inputs.template-file}} \
-      #          --parameters ${{ inputs.parameters}} \
-      #          --parameters environment=${{ vars.ENVIRONMENT }} \
-      #          --parameters topLevelManagementGroupname=${{ vars.topLevelManagementGroupname}}
+      - name: deploy management groups
+        uses: azure/cli@v1
+        with:
+            inlineScript: |
+              az deployment mg create \
+               --name ${{ inputs.name }} \
+               --location ${{ inputs.location }} \
+               --management-group-id ${{ secrets.TENANT_ID }} \
+               --template-file ${{inputs.template-file}} \
+               --parameters ${{ inputs.parameters}} \
+               --parameters environment=${{ vars.ENVIRONMENT }} \
+               --parameters topLevelManagementGroupname=${{ vars.topLevelManagementGroupname}}
   
