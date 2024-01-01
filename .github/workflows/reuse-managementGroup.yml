@@ -34,7 +34,7 @@ on:
 jobs:
   managementGroup:
     runs-on: ubuntu-latest
-    # environment: ${{ github.ref != 'refs/heads/main' && 'tst' || 'prod' }}
+    environment: ${{ github.ref != 'refs/heads/main' && 'tst' || 'prod' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -42,13 +42,13 @@ jobs:
       - name: echo
         run: echo "hello world"
       
-      # - name: Azure login
-      #   uses: azure/login@v1
-      #   with:
-      #     client-id: ${{ secrets.PLATFORM_IDENTITY_CLIENT_ID}}
-      #     tenant-id: ${{ secrets.TENANT_ID }}
-      #     allow-no-subscriptions: true
-      #     enable-AzPSSession: true
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.PLATFORM_IDENTITY_CLIENT_ID}}
+          tenant-id: ${{ secrets.TENANT_ID }}
+          allow-no-subscriptions: true
+          enable-AzPSSession: true
 
       # - name: deploy management groups
       #   uses: azure/cli@v1
