@@ -1,8 +1,8 @@
 name: managementGroups
 
 on:
-  pull_request_review:
-    types: [submitted]
+  pull_request:
+    types: [ closed ]
   
   workflow_dispatch:
 
@@ -11,28 +11,21 @@ permissions:
   id-token: write
   contents: read
 
-# jobs:
-  # linter:
-  #   if: startsWith(github.ref, 'refs/heads/tst/') 
-  #   uses: ./.github/workflows/reuse-linter.yml
-  #   with:
-  #     bicepFilePath: ./managementGroups/bicep-main/managementGroups.bicep
-
-  # tst:
-  #   # needs: linter
-  #   if: startsWith(github.ref, 'refs/heads/tst/') 
-  #   uses: ./.github/workflows/reuse-managementGroup.yml
-  #   secrets: inherit
-
-  # prod:
-  #   if: github.event.review.state == 'APPROVED'
-  #   uses: ./.github/workflows/reuse-managementGroup.yml
-  #   secrets: inherit
-
 jobs:
-  abc:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Run a one-line script
-        run: echo Hello, world!
+  linter:
+    if: startsWith(github.ref, 'refs/heads/tst/') 
+    uses: ./.github/workflows/reuse-linter.yml
+    with:
+      bicepFilePath: ./managementGroups/bicep-main/managementGroups.bicep
+
+  tst:
+    # needs: linter
+    if: startsWith(github.ref, 'refs/heads/tst/') 
+    uses: ./.github/workflows/reuse-managementGroup.yml
+    secrets: inherit
+
+  prod:
+    if: github.event.pull_request.merged == true
+    uses: ./.github/workflows/reuse-managementGroup.yml
+    secrets: inherit
+
