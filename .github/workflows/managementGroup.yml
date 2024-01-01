@@ -1,28 +1,25 @@
 name: managementGroups
 
 on:
-  push:
-    branches:
-      - tst/**
+  pull_request_review:
+    types: [submitted]
   
   workflow_dispatch:
 
-  pull_request_review:
-    types: [submitted]
 
 permissions:
   id-token: write
   contents: read
 
 jobs:
-  linter:
-    if: startsWith(github.ref, 'refs/heads/tst/') 
-    uses: ./.github/workflows/reuse-linter.yml
-    with:
-      bicepFilePath: ./managementGroups/bicep-main/managementGroups.bicep
+  # linter:
+  #   if: startsWith(github.ref, 'refs/heads/tst/') 
+  #   uses: ./.github/workflows/reuse-linter.yml
+  #   with:
+  #     bicepFilePath: ./managementGroups/bicep-main/managementGroups.bicep
 
   tst:
-    needs: linter
+    # needs: linter
     if: startsWith(github.ref, 'refs/heads/tst/') 
     uses: ./.github/workflows/reuse-managementGroup.yml
     secrets: inherit
