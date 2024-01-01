@@ -27,9 +27,13 @@ jobs:
     needs: linter
     if: startsWith(github.ref, 'refs/heads/tst/') 
     uses: ./.github/workflows/reuse-managementGroup.yml
+    with:
+      environment: tst
     secrets: inherit
 
   prod:
     if: github.event.pull_request.merged == true
     uses: ./.github/workflows/reuse-managementGroup.yml
+    with:
+      environment: prod
     secrets: inherit
