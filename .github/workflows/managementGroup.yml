@@ -4,11 +4,10 @@ on:
   push:
     branches:
       - tst/**
-      - main
 
-  # pull_request_target:
-  #   types:
-  #     - closed
+  pull_request_target:
+    types:
+      - closed
   
   workflow_dispatch:
 
@@ -31,8 +30,7 @@ jobs:
     secrets: inherit
 
   prod:
-    # needs: tst
-    if: github.ref == 'refs/heads/main/'
+    needs: tst
+    if: github.event.pull_request.merged == true
     uses: ./.github/workflows/reuse-managementGroup.yml
     secrets: inherit
-
