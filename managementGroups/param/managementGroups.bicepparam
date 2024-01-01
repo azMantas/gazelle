@@ -5,4 +5,5 @@ param environment = ''
 param childManagementGroups = [
   'platform'
   'playground'
+  'CIS'
 ]
