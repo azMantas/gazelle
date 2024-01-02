@@ -1,0 +1,48 @@
+name: managementGroups
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+  pull_request_target:
+    types:
+      - closed
+  
+  workflow_dispatch:
+
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  linter:
+    if: github.ref != 'refs/heads/main'
+    uses: ./.github/workflows/reuse-linter.yml
+    with:
+      bicepFilePath: ./managementGroups/bicep-main/policies.bicep
+
+  tst:
+    needs: linter
+    if: github.ref != 'refs/heads/main'
+    uses: ./.github/workflows/reuse-stack-mg.yml
+    with:
+      deploymentStackName: policies
+      environment: tst
+      location: westeurope
+      template-file: ./managementGroups/bicep-main/policies.bicep
+      parameter-file:  ./managementGroups/param/policies.bicepparam
+    secrets: inherit
+
+
+  prod:
+    if: github.event.pull_request.merged == true
+    uses: ./.github/workflows/reuse-stack-mg.yml
+    with:
+      deploymentStackName: policies
+      environment: prod
+      location: westeurope
+      template-file: ./managementGroups/bicep-main/policies.bicep
+      parameter-file: ./managementGroups/param/policies.bicepparam
+    secrets: inherit
