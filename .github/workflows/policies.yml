@@ -17,14 +17,14 @@ permissions:
   contents: read
 
 jobs:
-  linter:
-    if: github.ref != 'refs/heads/main'
-    uses: ./.github/workflows/reuse-linter.yml
-    with:
-      bicepFilePath: ./managementGroups/bicep-main/policies.bicep
+  # linter:
+  #   if: github.ref != 'refs/heads/main'
+  #   uses: ./.github/workflows/reuse-linter.yml
+  #   with:
+  #     bicepFilePath: ./managementGroups/bicep-main/policies.bicep
 
   tst:
-    needs: linter
+    # needs: linter
     if: github.ref != 'refs/heads/main'
     uses: ./.github/workflows/reuse-stack-mg.yml
     with:

@@ -23,7 +23,6 @@ module policyDefinition '../bicep-base/policydefinitions.bicep' = [for item in d
 @batchSize(20)
 module policySetDefinition '../bicep-base/policySetDefinitions.bicep' = [for item in setDefinitions: {
   name: 'setDefinition-${item.name}-${uniqueValue}'
-  #disable-next-line no-unnecessary-dependson
   dependsOn: policyDefinition
   params: {
     policySetDefinitionName: item.name
@@ -33,7 +32,6 @@ module policySetDefinition '../bicep-base/policySetDefinitions.bicep' = [for ite
 
 module assignment '../bicep-nested/policyAssignments-loop.bicep' = [for item in assignments: {
   name: 'assignment-${item.name}-${uniqueValue}'
-  #disable-next-line no-unnecessary-dependson
   dependsOn: policySetDefinition
   params: {
     location: location
