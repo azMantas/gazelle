@@ -36,9 +36,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
     
-      - name: echo
-        run: echo "hello ${{ inputs.environment }} "
-      
       - name: Azure login
         uses: azure/login@v1
         with:
