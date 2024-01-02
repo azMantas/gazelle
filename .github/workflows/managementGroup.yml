@@ -15,14 +15,14 @@ permissions:
 
 jobs:
   linter:
-    if: startsWith(github.ref, 'refs/heads/tst/') 
+    if: github.ref != 'refs/heads/main'
     uses: ./.github/workflows/reuse-linter.yml
     with:
       bicepFilePath: ./managementGroups/bicep-main/managementGroups.bicep
 
   tst:
     needs: linter
-    if: startsWith(github.ref, 'refs/heads/tst/') 
+    if: github.ref != 'refs/heads/main'
     uses: ./.github/workflows/reuse-managementGroup.yml
     with:
       environment: tst
