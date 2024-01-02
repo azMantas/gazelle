@@ -1,4 +1,4 @@
-name: managementGroups
+name: Policies
 
 on:
   push:
