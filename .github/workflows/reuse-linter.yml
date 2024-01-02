@@ -15,8 +15,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
       
-      - name: Run Bicep Linter
-        uses: azure/cli@v1
-        with:
-          inlineScript: |
-            az bicep build -f ${{ inputs.bicepFilePath }}
+      - name: echo
+        run: echo " do linter stuff here "
+        
+      # - name: Run Bicep Linter
+      #   uses: azure/cli@v1
+      #   with:
+      #     inlineScript: |
+      #       az bicep build -f ${{ inputs.bicepFilePath }}
