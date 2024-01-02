@@ -2,8 +2,6 @@ name: managementGroups
 
 on:
   push:
-    branches:
-      - tst/**
 
   pull_request:
     types: [ closed ]
