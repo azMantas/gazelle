@@ -23,7 +23,7 @@ on:
             type: string
 
 jobs:
-  managementGroup:
+  deployment:
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     steps:
