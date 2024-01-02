@@ -13,13 +13,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
-      
-      - name: echo
-        run: echo " do linter stuff here "
-        
-      # - name: Run Bicep Linter
-      #   uses: azure/cli@v1
-      #   with:
-      #     inlineScript: |
-      #       az bicep build -f ${{ inputs.bicepFilePath }}
+        uses: actions/checkout@v4      
+     
+      - name: Run Bicep Linter
+        uses: azure/cli@v1
+        with:
+          inlineScript: |
+            az bicep build -f ${{ inputs.bicepFilePath }}

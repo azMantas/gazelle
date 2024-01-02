@@ -7,31 +7,26 @@ on:
             required: true
             description: 'environment name'
             type: string
-    #     name:
-    #         required: false
-    #         description: 'Azudre deployment name'
-    #         type: string
-    #         default: 'management-groups'
-    #     location:
-    #         required: false
-    #         default: 'westeurope'
-    #         description: 'location for azure resources'
-    #         type: string
-    #     template-file:
-    #         required: false
-    #         default: ./managementGroups/bicep-main/managementGroups.bicep
-    #         description: 'bicep template file path'
-    #         type: string
-    #     parameters:
-    #         required: false
-    #         default: ./managementGroups/param/managementGroups.bicepparam
-    #         description: 'bicep parameters file path'
-    #         type: string
-    # secrets:
-    #   PLATFORM_IDENTITY_CLIENT_ID:
-    #     required: true
-    #   TENANT_ID:
-    #     required: true
+        name:
+            required: false
+            description: 'Azudre deployment name'
+            type: string
+            default: 'management-groups'
+        location:
+            required: false
+            default: 'westeurope'
+            description: 'location for azure resources'
+            type: string
+        template-file:
+            required: false
+            default: ./managementGroups/bicep-main/managementGroups.bicep
+            description: 'bicep template file path'
+            type: string
+        parameters:
+            required: false
+            default: ./managementGroups/param/managementGroups.bicepparam
+            description: 'bicep parameters file path'
+            type: string
 
 jobs:
   managementGroup:
@@ -41,9 +36,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
     
-      - name: echo
-        run: echo "hello ${{ inputs.environment }} "
-      
       - name: Azure login
         uses: azure/login@v1
         with:
@@ -52,15 +44,15 @@ jobs:
           allow-no-subscriptions: true
           enable-AzPSSession: true
 
-      # - name: deploy management groups
-      #   uses: azure/cli@v1
-      #   with:
-      #       inlineScript: |
-      #         az deployment mg create \
-      #          --name ${{ inputs.name }} \
-      #          --location ${{ inputs.location }} \
-      #          --management-group-id ae8377f0-95bf-4b28-a5d1-0fc08008709f \
-      #          --template-file ${{inputs.template-file}} \
-      #          --parameters ${{ inputs.parameters}} \
-      #          --parameters environment=${{ inputs.environment }} \
-      #          --parameters topLevelManagementGroupname=${{ vars.topLevelManagementGroupname}}
+      - name: deploy management groups
+        uses: azure/cli@v1
+        with:
+            inlineScript: |
+              az deployment mg create \
+               --name ${{ inputs.name }} \
+               --location ${{ inputs.location }} \
+               --management-group-id ${{ secrets.TENANT_ID }} \
+               --template-file ${{inputs.template-file}} \
+               --parameters ${{ inputs.parameters}} \
+               --parameters environment=${{ inputs.environment }} \
+               --parameters topLevelManagementGroupname=${{ vars.topLevelManagementGroupname}}
