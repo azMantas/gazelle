@@ -28,8 +28,9 @@ jobs:
     if: github.ref != 'refs/heads/main'
     uses: ./.github/workflows/reuse-stack-mg.yml
     with:
-      deploymentStackName: policies
+      deploymentStackName: Policies
       environment: tst
+      managementGroupName: gazelle-tst
       location: westeurope
       template-file: ./managementGroups/bicep-main/policies.bicep
       parameter-file:  ./managementGroups/param/policies.bicepparam
@@ -40,8 +41,9 @@ jobs:
     if: github.event.pull_request.merged == true
     uses: ./.github/workflows/reuse-stack-mg.yml
     with:
-      deploymentStackName: policies
+      deploymentStackName: Policies
       environment: prod
+      managementGroupName: gazelle-prod
       location: westeurope
       template-file: ./managementGroups/bicep-main/policies.bicep
       parameter-file: ./managementGroups/param/policies.bicepparam

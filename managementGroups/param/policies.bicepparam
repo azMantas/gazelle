@@ -1,8 +1,8 @@
 using '../bicep-main/policies.bicep'
 
-param topLevelManagementGroupName = ''
-param environment = ''
-param location = ''
+param topLevelManagementGroupName = 'gazelle'
+param environment = 'tst'
+param location = 'westeurope'
 
 var topLevelMgId = '${'/providers/Microsoft.Management/managementGroups/'}${topLevelManagementGroupName}-${environment}'
 

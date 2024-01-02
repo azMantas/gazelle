@@ -9,6 +9,9 @@ on:
         deploymentStackName:
             required: true
             type: string
+        managementGroupName:
+            required: true
+            type: string
         location:
             required: true
             type: string
@@ -45,7 +48,7 @@ jobs:
               az stack mg create \
                --name ${{ inputs.deploymentStackName }} \
                --location ${{ inputs.location }} \
-               --management-group-id ${{ secrets.TENANT_ID }} \
+               --management-group-id ${{ inputs.managementGroupName }} \
                --template-file ${{inputs.template-file}} \
                --parameters ${{ inputs.parameter-file }} \
                --parameters environment=${{ inputs.environment }} \
