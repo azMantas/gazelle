@@ -1,6 +1,6 @@
 using '../bicep-main/managementGroups.bicep'
 
-param topLevelManagementGroupname = ''
+param topLevelManagementGroupname = 'gazelle'
 param environment = ''
 param childManagementGroups = [
   'platform'
