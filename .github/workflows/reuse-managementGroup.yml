@@ -68,7 +68,7 @@ jobs:
               --management-group-id ${{ inputs.topLevelManagementGroupName }} \
               --template-file ${{ inputs.policiesTemplatefFle }} \
               --parameters ${{ inputs.policiesParameterFile }} \
-              # --parameters environment=${{ inputs.environment }} \
+              --parameters environment=${{ inputs.environment }} \
               --deny-settings-mode None \
               --delete-all true \
               --yes
