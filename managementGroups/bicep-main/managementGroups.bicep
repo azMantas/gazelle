@@ -1,7 +1,8 @@
 targetScope = 'managementGroup'
 
-param topLevelManagementGroupname string = ''
-param environment string = ''
+param topLevelManagementGroupname string
+@description('This value is dynamically fetched from GitHub Actions variables')
+param environment string
 param childManagementGroups array = [
   'platform'
   'playground'
