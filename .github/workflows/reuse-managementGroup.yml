@@ -23,7 +23,7 @@ on:
             type: string
         policiesTemplatefFle:
             required: false
-            default: ./policies/bicep-main/policies.bicep
+            default: ./managementGroups/bicep-main/policies.bicep
             type: string
         policiesParameterFile:
             required: false
@@ -66,7 +66,7 @@ jobs:
               --name Policies \
               --location ${{ inputs.location }} \
               --management-group-id ${{ inputs.topLevelManagementGroupName }} \
-              --template-file ${{inputs.policiesTemplatefFle}} \
+              --template-file ${{ inputs.policiesTemplatefFle }} \
               --parameters ${{ inputs.policiesParameterFile }} \
               --parameters environment=${{ inputs.environment }} \
               --deny-settings-mode None \
