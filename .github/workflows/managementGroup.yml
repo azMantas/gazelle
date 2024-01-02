@@ -3,8 +3,9 @@ name: managementGroups
 on:
   push:
 
-  pull_request:
-    types: [ closed ]
+  pull_request_target:
+    types:
+      - closed
   
   workflow_dispatch:
 
