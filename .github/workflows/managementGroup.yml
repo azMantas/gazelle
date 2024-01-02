@@ -2,9 +2,12 @@ name: managementGroups
 
 on:
   push:
+    branches-ignore:
+      - main
 
-  pull_request:
-    types: [ closed ]
+  pull_request_target:
+    types:
+      - closed
   
   workflow_dispatch:
 
@@ -30,6 +33,7 @@ jobs:
 
 
   prod:
+    needs: tst
     if: github.event.pull_request.merged == true
     uses: ./.github/workflows/reuse-managementGroup.yml
     with:
