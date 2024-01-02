@@ -54,5 +54,4 @@ jobs:
                --management-group-id ${{ secrets.TENANT_ID }} \
                --template-file ${{inputs.template-file}} \
                --parameters ${{ inputs.parameters}} \
-               --parameters environment=${{ inputs.environment }} \
-               --parameters topLevelManagementGroupname=${{ vars.topLevelManagementGroupname}}
+               --parameters environment=${{ inputs.environment }}
