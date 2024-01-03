@@ -29,6 +29,14 @@ on:
             required: false
             default: ./managementGroups/param/policies.bicepparam
             type: string
+        rbacTemplatefFle:
+            required: false
+            default: ./managementGroups/bicep-main/roleAssignments.bicep
+            type: string
+        rbacParameterFile:
+            required: false
+            default: ./managementGroups/param/roleAssignments.bicepparam
+            type: string
 
 jobs:
   managementGroup:
@@ -63,11 +71,26 @@ jobs:
         with:
             inlineScript: |
               az stack mg create \
-              --name done \
+              --name policies \
               --location ${{ inputs.location }} \
               --management-group-id ${{ inputs.topLevelManagementGroupName }} \
               --template-file ${{ inputs.policiesTemplatefFle }} \
               --parameters ${{ inputs.policiesParameterFile }} \
+              --parameters environment=${{ inputs.environment }} \
+              --deny-settings-mode None \
+              --delete-all true \
+              --yes
+
+      - name: asign RBAC
+        uses: azure/cli@v1
+        with:
+            inlineScript: |
+              az stack mg create \
+              --name RBAC \
+              --location ${{ inputs.location }} \
+              --management-group-id ${{ inputs.topLevelManagementGroupName }} \
+              --template-file ${{ inputs.rbacTemplatefFle }} \
+              --parameters ${{ inputs.rbacParameterFile }} \
               --parameters environment=${{ inputs.environment }} \
               --deny-settings-mode None \
               --delete-all true \
