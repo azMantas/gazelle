@@ -15,7 +15,6 @@ var uniqueValue = take(uniqueString(utc), 5)
 module policyDefinition '../bicep-base/policydefinitions.bicep' = [for item in definitions: {
   name: 'definition-${item.name}-${uniqueValue}'
   params: {
-    
     policyName: item.name
     policyProperties: item.properties
   }
