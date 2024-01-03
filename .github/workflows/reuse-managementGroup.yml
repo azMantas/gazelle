@@ -62,9 +62,8 @@ jobs:
         uses: azure/cli@v1
         with:
             inlineScript: |
-              # az stack mg create --name abcv2 --location westeurope --management-group-id gazelle-tst --template-file ./managementGroups/bicep-main/policies.bicep --parameters ./managementGroups/param/policies.bicepparam --deny-settings-mode None --delete-all true --parameters environment=tst --yes
               az stack mg create \
-              --name abcv2 \
+              --name done \
               --location ${{ inputs.location }} \
               --management-group-id ${{ inputs.topLevelManagementGroupName }} \
               --template-file ${{ inputs.policiesTemplatefFle }} \
