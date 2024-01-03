@@ -11,19 +11,19 @@ param utc string = utcNow()
 
 var uniqueValue = take(uniqueString(utc), 5)
 
-@batchSize(20)
-module policyDefinition '../bicep-base/policydefinitions.bicep' = [for item in definitions: {
-  name: 'definition-${item.name}-${uniqueValue}'
-  params: {
-    policyName: item.name
-    policyProperties: item.properties
-  }
-}]
+#@batchSize(20)
+#module policyDefinition '../bicep-base/policydefinitions.bicep' = [for item in definitions: {
+#  name: 'definition-${item.name}-${uniqueValue}'
+#  params: {
+#    policyName: item.name
+#    policyProperties: item.properties
+#  }
+#}]
 
 @batchSize(20)
 module policySetDefinition '../bicep-base/policySetDefinitions.bicep' = [for item in setDefinitions: {
   name: 'setDefinition-${item.name}-${uniqueValue}'
-  dependsOn: policyDefinition
+#  dependsOn: policyDefinition
   params: {
     policySetDefinitionName: item.name
     policySetDefinitionProperties: item.properties
