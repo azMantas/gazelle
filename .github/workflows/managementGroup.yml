@@ -21,7 +21,8 @@ jobs:
     if: github.ref != 'refs/heads/main'
     uses: ./.github/workflows/reuse-linter.yml
     with:
-      bicepFilePath: ./managementGroups/bicep-main/managementGroups.bicep
+      managementGroupsfilePath: ./managementGroups/bicep-main/managementGroups.bicep
+      policiesfilePath: ./managementGroups/bicep-main/policies.bicep
 
   tst:
     needs: linter
@@ -29,6 +30,7 @@ jobs:
     uses: ./.github/workflows/reuse-managementGroup.yml
     with:
       environment: tst
+      topLevelManagementGroupName: gazelle-tst   
     secrets: inherit
 
 
@@ -37,4 +39,5 @@ jobs:
     uses: ./.github/workflows/reuse-managementGroup.yml
     with:
       environment: prod
+      topLevelManagementGroupName: gazelle-prod
     secrets: inherit

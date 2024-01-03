@@ -3,10 +3,12 @@ name: reusable - linter
 on:
   workflow_call:
     inputs:
-        bicepFilePath:
+      managementGroupsfilePath:
             required: true
             type: string
-            description: 'The path to the bicep file to be linted'
+      policiesfilePath:
+            required: true
+            type: string
 
 jobs:
   linter:
@@ -19,4 +21,5 @@ jobs:
         uses: azure/cli@v1
         with:
           inlineScript: |
-            az bicep build -f ${{ inputs.bicepFilePath }}
+            az bicep build -f ${{ inputs.managementGroupsfilePath }}
+            az bicep build -f ${{ inputs.policiesfilePath }}
