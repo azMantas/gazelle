@@ -5,27 +5,37 @@ on:
     inputs:
         environment:
             required: true
-            description: 'environment name'
             type: string
-        name:
-            required: false
-            description: 'Azudre deployment name'
-            type: string
-            default: 'management-groups'
         location:
             required: false
             default: 'westeurope'
-            description: 'location for azure resources'
             type: string
-        template-file:
+        managementGroupTemplatefFle:
             required: false
             default: ./managementGroups/bicep-main/managementGroups.bicep
-            description: 'bicep template file path'
             type: string
-        parameters:
+        managementGroupParameters:
             required: false
             default: ./managementGroups/param/managementGroups.bicepparam
-            description: 'bicep parameters file path'
+            type: string
+        topLevelManagementGroupName:
+            required: true
+            type: string
+        policiesTemplatefFle:
+            required: false
+            default: ./managementGroups/bicep-main/policies.bicep
+            type: string
+        policiesParameterFile:
+            required: false
+            default: ./managementGroups/param/policies.bicepparam
+            type: string
+        rbacTemplatefFle:
+            required: false
+            default: ./managementGroups/bicep-main/roleAssignments.bicep
+            type: string
+        rbacParameterFile:
+            required: false
+            default: ./managementGroups/param/roleAssignments.bicepparam
             type: string
 
 jobs:
@@ -49,9 +59,39 @@ jobs:
         with:
             inlineScript: |
               az deployment mg create \
-               --name ${{ inputs.name }} \
+               --name management-groups \
                --location ${{ inputs.location }} \
                --management-group-id ${{ secrets.TENANT_ID }} \
-               --template-file ${{inputs.template-file}} \
-               --parameters ${{ inputs.parameters}} \
+               --template-file ${{inputs.managementGroupTemplatefFle}} \
+               --parameters ${{ inputs.managementGroupParameters}} \
                --parameters environment=${{ inputs.environment }}
+
+      - name: deploy policies
+        uses: azure/cli@v1
+        with:
+            inlineScript: |
+              az stack mg create \
+              --name policies \
+              --location ${{ inputs.location }} \
+              --management-group-id ${{ inputs.topLevelManagementGroupName }} \
+              --template-file ${{ inputs.policiesTemplatefFle }} \
+              --parameters ${{ inputs.policiesParameterFile }} \
+              --parameters environment=${{ inputs.environment }} \
+              --deny-settings-mode None \
+              --delete-all true \
+              --yes
+
+      - name: asign RBAC
+        uses: azure/cli@v1
+        with:
+            inlineScript: |
+              az stack mg create \
+              --name RBAC \
+              --location ${{ inputs.location }} \
+              --management-group-id ${{ inputs.topLevelManagementGroupName }} \
+              --template-file ${{ inputs.rbacTemplatefFle }} \
+              --parameters ${{ inputs.rbacParameterFile }} \
+              --parameters environment=${{ inputs.environment }} \
+              --deny-settings-mode None \
+              --delete-all true \
+              --yes

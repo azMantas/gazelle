@@ -1,13 +1,14 @@
 using '../bicep-main/policies.bicep'
 
-param topLevelManagementGroupName = ''
-param environment = ''
+param topLevelManagementGroupName = 'gazelle'
+param environment = 'tst'
+param location = 'westeurope'
 
 var topLevelMgId = '${'/providers/Microsoft.Management/managementGroups/'}${topLevelManagementGroupName}-${environment}'
 
 param definitions = [
-  loadJsonContent('./policies/definitions/st_allowCrossTenantReplication.json')
-  loadJsonContent('./policies/definitions/st_networkAclsVirtualNetworkRules.json')
+  loadJsonContent('policies/definitions/st_allowCrossTenantReplication.json')
+  loadJsonContent('policies/definitions/st_networkAclsVirtualNetworkRules.json')
 ]
 
 param setDefinitions = [
