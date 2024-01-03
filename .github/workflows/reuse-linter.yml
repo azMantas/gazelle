@@ -9,6 +9,9 @@ on:
       policiesfilePath:
             required: true
             type: string
+      rbacfilePath:
+            required: true
+            type: string
 
 jobs:
   linter:
@@ -23,3 +26,4 @@ jobs:
           inlineScript: |
             az bicep build -f ${{ inputs.managementGroupsfilePath }}
             az bicep build -f ${{ inputs.policiesfilePath }}
+            az bicep build -f ${{ inputs.rbacfilePath }}

@@ -23,6 +23,7 @@ jobs:
     with:
       managementGroupsfilePath: ./managementGroups/bicep-main/managementGroups.bicep
       policiesfilePath: ./managementGroups/bicep-main/policies.bicep
+      rbacfilePath: ./managementGroups/bicep-main/roleAssignments.bicep
 
   tst:
     needs: linter
