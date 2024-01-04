@@ -11,14 +11,13 @@ on:
   
   workflow_dispatch:
 
-
 permissions:
   id-token: write
   contents: read
 
 jobs:
   linter:
-    if: github.ref != 'refs/heads/main'
+    if: github.ref != 'refs/heads/main' && github.event.head_commit.message != ''
     uses: ./.github/workflows/reuse-linter.yml
     with:
       managementGroupsfilePath: ./managementGroups/bicep-main/managementGroups.bicep
@@ -27,7 +26,6 @@ jobs:
 
   tst:
     needs: linter
-    if: github.ref != 'refs/heads/main'
     uses: ./.github/workflows/reuse-managementGroup.yml
     with:
       environment: tst
