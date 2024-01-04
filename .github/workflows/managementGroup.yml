@@ -17,7 +17,7 @@ permissions:
 
 jobs:
   linter:
-    if: github.ref != 'refs/heads/main' && github.event.head_commit.message != ''
+    if: github.ref != 'refs/heads/main'
     uses: ./.github/workflows/reuse-linter.yml
     with:
       managementGroupsfilePath: ./managementGroups/bicep-main/managementGroups.bicep
