@@ -13,6 +13,6 @@ jobs:
     with:
       topLevelManagementGroupName: gazelle
       environment: tst
-      location: westeurope
-      parameterFile: ./landingzones/parameters/cis-management-tst.json
+      location: francecentral
+      parameterFile: ./landingzones/parameters/platform-management-tst.json
     secrets: inherit

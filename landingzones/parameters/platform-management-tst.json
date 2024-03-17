@@ -4,7 +4,7 @@
         "environment": "tst",
         "location": "westeurope",
         "subscriptionId": "7e88dc1f-a45d-47dc-b986-785db0fea339",
-        "managementGroupId": "CIS-tst"
+        "managementGroupId": "platform-tst"
     },
     "identity": {},
     "cost": {
@@ -13,8 +13,8 @@
     "policies": {
         "tags": {
             "subscriptionLevel": {
-                "owner": "flying@gippo.run",
-                "engineer": "crawling@gazeele.cloud"
+                "owner": "flying@gazelle.run",
+                "engineer": "crawling@gazelle.cloud"
             },
             "resourceLevel": {
                 "sponsor": "pay-as-you-go",

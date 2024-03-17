@@ -13,6 +13,6 @@ jobs:
     with:
       topLevelManagementGroupName: gazelle
       environment: prod
-      location: westeurope
+      location: francecentral
       parameterFile: ./landingzones/parameters/cis-management-prod.json
     secrets: inherit

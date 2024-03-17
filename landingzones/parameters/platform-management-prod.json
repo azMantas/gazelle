@@ -13,8 +13,8 @@
     "policies": {
         "tags": {
             "subscriptionLevel": {
-                "owner": "flying@gippo.run",
-                "engineer": "crawling@gazeele.cloud"
+                "owner": "flying@gazelle.run",
+                "engineer": "crawling@gazelle.cloud"
             },
             "resourceLevel": {
                 "sponsor": "MSDN",
