@@ -1,0 +1,81 @@
+name: template - landingzone
+
+on:
+  workflow_call:
+    inputs:
+        topLevelManagementGroupName:
+            required: true
+            type: string
+        environment:
+            required: true
+            type: string
+        location:
+            required: true
+            type: string
+        templateFile:
+            default: ./landingzones/bicep-main/base.bicep
+            type: string
+        parameterFile:
+            required: true
+            type: string
+        
+jobs:
+  landingzone:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+    
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.PLATFORM_IDENTITY_CLIENT_ID}}
+          tenant-id: ${{ secrets.TENANT_ID }}
+          allow-no-subscriptions: true
+          enable-AzPSSession: true
+
+      - name: outputs
+        id: outputs
+        uses: azure/powershell@v1
+        with:
+            azPSVersion: 'latest'
+            inlineScript: |
+              $TemplateFileText = [System.IO.File]::ReadAllText('${{ inputs.parameterFile }}')
+              $params = ConvertFrom-Json $TemplateFileText -AsHashtable
+              $deploymentParams = @{
+                name = "outputs"
+                Location = "westeurope"
+                ManagementGroupId = "${{ format('{0}-{1}', inputs.topLevelManagementGroupName, inputs.environment) }}"
+                TemplateFile = "./landingzones/bicep-main/outputs.bicep"
+                Params = $params
+              }
+              $deployment = new-azManagementGroupDeployment @deploymentParams
+              $deployment.Outputs.GetEnumerator() | ForEach-Object {
+                  $key = $_.Key
+                  $value = $_.Value.Value
+                  write-host "$key = $value"
+                  Write-Host "::set-output name=$key::$value"
+              }
+
+
+      - name: landing zone
+        uses: azure/powershell@v1
+        with:
+            azPSVersion: 'latest'
+            inlineScript: |
+              $TemplateFileText = [System.IO.File]::ReadAllText('${{ inputs.parameterFile }}')
+              $params = ConvertFrom-Json $TemplateFileText -AsHashtable
+              $deploymentParams = @{
+                name = "landingzone"
+                Location = "westeurope"
+                ManagementGroupId = "${{ format('{0}-{1}', inputs.topLevelManagementGroupName, inputs.environment) }}"
+                TemplateFile = "./landingzones/bicep-main/base.bicep"
+                Params = $params
+              }
+              $deployment = new-azManagementGroupDeployment @deploymentParams
+
+      - name: read outputs
+        run: |
+            echo "The value of the output is ${{ steps.outputs.outputs.subscriptionId }}"
+            echo "The value of the output is ${{ steps.outputs.outputs.budget }}"

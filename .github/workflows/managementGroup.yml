@@ -1,0 +1,56 @@
+name: managementGroups
+
+on:
+  push:
+    branches-ignore:
+      - main
+    paths:
+        - 'managementGroups/**'
+
+  pull_request_target:
+    types:
+      - closed
+  
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  changes:
+    if: github.ref != 'refs/heads/main'
+    runs-on: ubuntu-latest
+    outputs:
+      repo: ${{ steps.filter.outputs.repo }}
+    steps:
+    - uses: actions/checkout@v4
+    - uses: dorny/paths-filter@v2
+      id: filter
+      with:
+        filters: |
+          repo:
+            - 'managementGroups/**'
+
+  tst:
+    uses: ./.github/workflows/tmp-managementGroup.yml
+    needs: changes
+    if: ${{ needs.changes.outputs.repo == 'true' }}
+    with:
+      topLevelManagementGroupName: gazelle
+      location: westeurope
+      environment: tst
+      policyIdentityResourceId: '/subscriptions/7e88dc1f-a45d-47dc-b986-785db0fea339/resourceGroups/identity-tst/providers/Microsoft.ManagedIdentity/userAssignedIdentities/id-platform-tst'
+      rbacParameters: './managementGroups/parameters/rbac-tst.bicepparam'
+    secrets: inherit
+
+  prod:
+    if: contains(github.event.pull_request.labels.*.name, 'managementgroups') || github.event_name == 'workflow_dispatch'
+    uses: ./.github/workflows/tmp-managementGroup.yml
+    with:
+      topLevelManagementGroupName: gazelle
+      location: westeurope
+      environment: prod
+      policyIdentityResourceId: '/subscriptions/84e64f94-714d-4c07-9f03-f07af8380b36/resourceGroups/identity-prod/providers/Microsoft.ManagedIdentity/userAssignedIdentities/id-platform-prod'
+      rbacParameters: './managementGroups/parameters/rbac-prod.bicepparam'
+    secrets: inherit

@@ -1,0 +1,177 @@
+{
+    "name": "storagePolicies",
+    "properties": {
+        "displayName": "policies for storage account",
+        "metadata": {
+            "category": "Storage",
+            "description": "policies for storage account"
+        },
+        "parameters": {
+            "st_requireInfrastructureEncryption": {
+                "type": "String",
+                "defaultValue": "Deny"
+            },
+            "st_ClassicStorage": {
+                "type": "String",
+                "defaultValue": "Deny"
+            },
+            "st_networkAclsBypass": {
+                "type": "String",
+                "defaultValue": "Deny"
+            },
+            "st_minimumTlsVersion": {
+                "type": "String",
+                "defaultValue": "TLS1_2"
+            },
+            "st_minimumTlsVersionEffect": {
+                "type": "String",
+                "defaultValue": "Deny"
+            },
+            "st_networkAclsDefaultAction": {
+                "type": "String",
+                "defaultValue": "Deny"
+            },
+            "st_allowSharedKeyAccess": {
+                "type": "String",
+                "defaultValue": "Deny"
+            },
+            "st_allowBlobPublicAccess": {
+                "type": "String",
+                "defaultValue": "Deny"
+            },
+            "st_networkAclsIpRules": {
+                "type": "String",
+                "defaultValue": "Deny"
+            },
+            "st_privateEndpointConnections": {
+                "type": "String",
+                "defaultValue": "AuditIfNotExists"
+            },
+            "st_supportsHttpsTrafficOnly": {
+                "type": "String",
+                "defaultValue": "Deny"
+            },
+            "st_allowCrossTenantReplication": {
+                "type": "String",
+                "defaultValue": "Disabled"
+            },
+            "st_networkAclsVirtualNetworkRules": {
+                "type": "String",
+                "defaultValue": "Disabled"
+            }
+        },
+        "policyDefinitions": [
+            {
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/bfecdea6-31c4-4045-ad42-71b9dc87247d",
+                "policyDefinitionReferenceId": "st_requireInfrastructureEncryption",
+                "parameters": {
+                    "effect": {
+                        "value": "[parameters('st_requireInfrastructureEncryption')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/37e0d2fe-28a5-43d6-a273-67d37d1f5606",
+                "policyDefinitionReferenceId": "st_ClassicStorage",
+                "parameters": {
+                    "effect": {
+                        "value": "[parameters('st_ClassicStorage')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/c9d007d0-c057-4772-b18c-01e546713bcd",
+                "policyDefinitionReferenceId": "st_networkAclsBypass",
+                "parameters": {
+                    "effect": {
+                        "value": "[parameters('st_networkAclsBypass')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/fe83a0eb-a853-422d-aac2-1bffd182c5d0",
+                "policyDefinitionReferenceId": "st_minimumTlsVersion",
+                "parameters": {
+                    "effect": {
+                        "value": "[parameters('st_minimumTlsVersionEffect')]"
+                    },
+                    "minimumTlsVersion": {
+                        "value": "[parameters('st_minimumTlsVersion')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/34c877ad-507e-4c82-993e-3452a6e0ad3c",
+                "policyDefinitionReferenceId": "st_networkAclsDefaultAction",
+                "parameters": {
+                    "effect": {
+                        "value": "[parameters('st_networkAclsDefaultAction')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/8c6a50c6-9ffd-4ae7-986f-5fa6111f9a54",
+                "policyDefinitionReferenceId": "st_allowSharedKeyAccess",
+                "parameters": {
+                    "effect": {
+                        "value": "[parameters('st_allowSharedKeyAccess')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/4fa4b6c0-31ca-4c0d-b10d-24b96f62a751",
+                "policyDefinitionReferenceId": "st_allowBlobPublicAccess",
+                "parameters": {
+                    "effect": {
+                        "value": "[parameters('st_allowBlobPublicAccess')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/2a1a9cdf-e04d-429a-8416-3bfb72a1b26f",
+                "policyDefinitionReferenceId": "st_networkAclsIpRules",
+                "parameters": {
+                    "effect": {
+                        "value": "[parameters('st_networkAclsIpRules')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/6edd7eda-6dd8-40f7-810d-67160c639cd9",
+                "policyDefinitionReferenceId": "st_privateEndpointConnections",
+                "parameters": {
+                    "effect": {
+                        "value": "[parameters('st_privateEndpointConnections')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/404c3081-a854-4457-ae30-26a93ef643f9",
+                "policyDefinitionReferenceId": "st_supportsHttpsTrafficOnly",
+                "parameters": {
+                    "effect": {
+                        "value": "[parameters('st_supportsHttpsTrafficOnly')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "{{topLevel}}/providers/Microsoft.Authorization/policyDefinitions/st_allowCrossTenantReplication",
+                "policyDefinitionReferenceId": "st_allowCrossTenantReplication",
+                "parameters": {
+                    "effect": {
+                        "value": "[parameters('st_allowCrossTenantReplication')]"
+                    }
+                }
+            },
+            {
+                "policyDefinitionId": "{{topLevel}}/providers/Microsoft.Authorization/policyDefinitions/st_vnetAclrRules",
+                "policyDefinitionReferenceId": "st_networkAclsVirtualNetworkRules",
+                "parameters": {
+                    "effect": {
+                        "value": "[parameters('st_networkAclsVirtualNetworkRules')]"
+                    }
+                }
+            }
+        ]
+    }
+}

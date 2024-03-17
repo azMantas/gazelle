@@ -1,0 +1,26 @@
+{
+    "basic": {
+        "labName": "platform",
+        "environment": "prod",
+        "location": "westeurope",
+        "subscriptionId": "84e64f94-714d-4c07-9f03-f07af8380b36",
+        "managementGroupId": "platform-prod"
+    },
+    "identity": {},
+    "cost": {
+        "budget": 300
+    },
+    "policies": {
+        "tags": {
+            "subscriptionLevel": {
+                "owner": "flying@gippo.run",
+                "engineer": "crawling@gazeele.cloud"
+            },
+            "resourceLevel": {
+                "sponsor": "MSDN",
+                "workload": "platform",
+                "environment": "prod"
+            }
+        }
+    }
+}

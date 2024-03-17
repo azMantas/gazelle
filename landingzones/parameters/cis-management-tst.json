@@ -1,0 +1,26 @@
+{
+    "basic": {
+        "labName": "platform",
+        "environment": "tst",
+        "location": "westeurope",
+        "subscriptionId": "7e88dc1f-a45d-47dc-b986-785db0fea339",
+        "managementGroupId": "CIS-tst"
+    },
+    "identity": {},
+    "cost": {
+        "budget": 100
+    },
+    "policies": {
+        "tags": {
+            "subscriptionLevel": {
+                "owner": "flying@gippo.run",
+                "engineer": "crawling@gazeele.cloud"
+            },
+            "resourceLevel": {
+                "sponsor": "pay-as-you-go",
+                "workload": "platform",
+                "environment": "tst"
+            }
+        }        
+    }
+}

@@ -1,0 +1,36 @@
+{
+    "name": "allowedResourceTypes",
+    "properties": {
+        "displayName": "Allowed Resource Types",
+        "metadata": {
+            "category": "General",
+            "description": "The list of allowed resource types."
+        },
+        "parameters": {
+            "listOfResourceTypesAllowed": {
+                "type": "array",
+                "defaultValue": [
+                    "Microsoft.Authorization/policyAssignments",
+                    "Microsoft.Authorization/policyDefinitions",
+                    "Microsoft.Authorization/policyExemptions",
+                    "Microsoft.Authorization/policySetDefinitions",
+                    "Microsoft.Authorization/roleAssignments",
+                    "Microsoft.Authorization/roleDefinitions",
+                    "Microsoft.Authorization/locks",
+                    "Microsoft.ManagedIdentity/userAssignedIdentities"
+                ]
+            }
+        },
+        "policyDefinitions":[
+            {
+                "policyDefinitionId": "/providers/Microsoft.Authorization/policyDefinitions/a08ec900-254a-4555-9bf5-e42af04b5c5c",
+                "policyDefinitionReferenceId": "allowedResourceTypes",
+                "parameters": {
+                    "listOfResourceTypesAllowed": {
+                        "value": "[parameters('listOfResourceTypesAllowed')]"               
+                    }
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,105 @@
+name: template - management groups
+
+on:
+  workflow_call:
+    inputs:
+        topLevelManagementGroupName:
+            required: true
+            type: string
+        environment:
+            required: true
+            type: string
+        location:
+            required: true
+            type: string
+        policyIdentityResourceId:
+            type: string
+        managementGroupParameterFile:
+            default: ./managementGroups/parameters/managementGroups.bicepparam
+            type: string
+        policyParameters:
+            default: ./managementGroups/parameters/policies.bicepparam
+            type: string
+        rbacParameters:
+            required: true
+            type: string
+        customRoleParameters:
+            default: ./managementGroups/parameters/customRoles.bicepparam
+            type: string
+              
+
+jobs:
+  managementGroup:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+    
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.PLATFORM_IDENTITY_CLIENT_ID}}
+          tenant-id: ${{ secrets.TENANT_ID }}
+          allow-no-subscriptions: true
+          enable-AzPSSession: false
+
+      - name: deploy management groups
+        uses: azure/cli@v1
+        with:
+            inlineScript: |
+              az deployment mg create \
+               --name management-groups-${{ github.run_number }} \
+               --location ${{ inputs.location }} \
+               --management-group-id ${{ format('{0}-{1}', inputs.topLevelManagementGroupName, inputs.environment) }} \
+               --template-file './managementGroups/bicep-main/managementGroups.bicep' \
+               --parameters ${{ inputs.managementGroupParameterFile }} \
+               --parameters environment=${{ inputs.environment }} \
+               --parameters topLevelManagementGroupName=${{ inputs.topLevelManagementGroupName }}
+
+      - name: custom roles
+        uses: azure/cli@v1
+        with:
+            inlineScript: |
+              az stack mg create \
+              --name custom-roles \
+              --location ${{ inputs.location }} \
+              --management-group-id ${{ format('{0}-{1}', inputs.topLevelManagementGroupName, inputs.environment) }} \
+              --template-file './managementGroups/bicep-main/roleDefinitions.bicep' \
+              --parameters ${{ inputs.customRoleParameters }} \
+              --parameters topLevelManagementGroupName=${{ inputs.topLevelManagementGroupName }} \
+              --parameters environment=${{ inputs.environment }} \
+              --deny-settings-mode None \
+              --delete-all true \
+              --yes
+
+      - name: deploy policies
+        uses: azure/cli@v1
+        with:
+            inlineScript: |
+              az stack mg create \
+              --name policies \
+              --location ${{ inputs.location }} \
+              --management-group-id ${{ format('{0}-{1}', inputs.topLevelManagementGroupName, inputs.environment) }} \
+              --template-file './managementGroups/bicep-main/policies.bicep' \
+              --parameters ${{ inputs.policyParameters }} \
+              --parameters environment=${{ inputs.environment }} \
+              --parameters policyIdentityResourceId=${{ inputs.policyIdentityResourceId }} \
+              --deny-settings-mode None \
+              --delete-all true \
+              --yes
+
+      - name: asign RBAC
+        uses: azure/cli@v1
+        with:
+            inlineScript: |
+              az stack mg create \
+              --name RBAC \
+              --location ${{ inputs.location }} \
+              --management-group-id ${{ format('{0}-{1}', inputs.topLevelManagementGroupName, inputs.environment) }} \
+              --template-file './managementGroups/bicep-main/roleAssignments.bicep' \
+              --parameters ${{ inputs.rbacParameters }} \
+              --parameters environment=${{ inputs.environment }} \
+              --deny-settings-mode None \
+              --delete-all true \
+              --yes
