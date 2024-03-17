@@ -1,4 +1,4 @@
-name: lz-management-tst
+name: lz-paltform-management-tst
 
 on:
   workflow_dispatch:

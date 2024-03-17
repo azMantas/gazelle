@@ -1,4 +1,4 @@
-name: lz-management-prod
+name: lz-platform-management-prod
 
 on:
   workflow_dispatch:
