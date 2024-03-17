@@ -1,8 +1,8 @@
 {
     "basic": {
-        "labName": "platform",
+        "labName": "management",
         "environment": "prod",
-        "location": "westeurope",
+        "location": "francecentral",
         "subscriptionId": "84e64f94-714d-4c07-9f03-f07af8380b36",
         "managementGroupId": "platform-prod"
     },

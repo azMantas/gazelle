@@ -1,8 +1,8 @@
 {
     "basic": {
-        "labName": "platform",
+        "labName": "management",
         "environment": "tst",
-        "location": "westeurope",
+        "location": "francecentral",
         "subscriptionId": "7e88dc1f-a45d-47dc-b986-785db0fea339",
         "managementGroupId": "platform-tst"
     },
