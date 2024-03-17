@@ -3,11 +3,11 @@
     "policyDisplayName": "storage account policies",
     "policyDefinitionId": "{{topLevel}}/providers/Microsoft.Authorization/policySetDefinitions/storagePolicies",
     "scope": {
-        "foo": {
+        "CIS": {
             "parameters": {},
             "enforcementMode": "Default"
         },
-        "bar": {
+        "playground": {
             "parameters": {},
             "enforcementMode": "donotenforce"
         }

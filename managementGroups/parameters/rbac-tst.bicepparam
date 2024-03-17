@@ -9,7 +9,7 @@ param rbac = {
     {
       roleDefinitionId: rbacMapping.Reader
       principalId: [
-        'f563bfc8-0d96-4846-9f4c-0a10d49309c1'
+        '40e39f8d-f0c6-4c45-a1f3-69387c5dcd99'
       ]
     }
     {
