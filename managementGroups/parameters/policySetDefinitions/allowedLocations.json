@@ -10,7 +10,8 @@
             "listOfAllowedLocations": {
                 "type": "array",
                 "defaultValue": [
-                    "westeurope"
+                    "westeurope",
+                    "francecentral"
                 ]
             }
         },
