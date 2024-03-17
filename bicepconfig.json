@@ -1,0 +1,8 @@
+{
+  "analyzers": {
+    "core": {}
+  },
+  "experimentalFeaturesEnabled": {
+    "optionalModuleNames": true
+  }
+}
