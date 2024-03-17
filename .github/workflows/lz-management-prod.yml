@@ -1,4 +1,4 @@
-name: lz-management-prod
+name: lz-platform-management-prod
 
 on:
   workflow_dispatch:
@@ -13,6 +13,6 @@ jobs:
     with:
       topLevelManagementGroupName: gazelle
       environment: prod
-      location: westeurope
-      parameterFile: ./landingzones/parameters/cis-management-prod.json
+      location: francecentral
+      parameterFile: ./landingzones/parameters/platform-management-prod.json
     secrets: inherit

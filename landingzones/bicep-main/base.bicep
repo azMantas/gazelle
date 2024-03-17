@@ -7,7 +7,7 @@ module identity '../bicep-nested/identity.bicep' = {
   name: 'landingzone-identity'
   scope: subscription(params.basic.subscriptionId)
   params: {
-    labName: params.basic.labName
+    labName: 'lz-identity'
     environment: params.basic.environment
     location: params.basic.location
   }
