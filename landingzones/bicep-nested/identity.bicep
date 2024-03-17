@@ -7,7 +7,7 @@ param location string = 'westeurope'
 var name = 'id-${labName}-${environment}'
 
 resource identityResourceGroup 'Microsoft.Resources/resourceGroups@2023-07-01' = {
-  name: '${labName}-${environment}'
+  name: 'lz-identity-${environment}'
   location: location
 }
 
