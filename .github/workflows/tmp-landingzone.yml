@@ -36,7 +36,7 @@ jobs:
           enable-AzPSSession: true
 
       - name: prepare Deployment
-        id: prepare
+        id: fromBicep
         uses: azure/powershell@v1
         with:
             azPSVersion: 'latest'
@@ -63,8 +63,8 @@ jobs:
         with:
             inlineScript: |
               az account subscription rename  \
-                --id ${{ steps.prepare.outputsFromBicep.subscriptionId }} \
-                --name ${{ steps.prepare.outputsFromBicep.subscriptionName }}
+                --id ${{ steps.fromBicep.outputs.subscriptionId }} \
+                --name ${{ steps.fromBicep.outputs.subscriptionName }}
               
       - name: landing zone
         uses: azure/powershell@v1
