@@ -1,5 +1,6 @@
 {
     "platformEngineers": {
+        "name": "platformEngineers",
         "displayName": "platform engineers",
         "description": "allows to perform manual tasks such as dismiss alerts, remediate policies and other operations that does not brake IaC principles",
         "permissions": [
@@ -12,6 +13,7 @@
         ]
     },
     "clickOps": {
+        "name": "clickOps",
         "displayName": "clickOps specialists",
         "description": "testing custom role assignments",
         "permissions": [
@@ -24,6 +26,7 @@
         ]
     },
     "copyPaster": {
+        "name": "copyPaster",
         "displayName": "copy-paster master",
         "description": "another custom role assignments",
         "permissions": [
