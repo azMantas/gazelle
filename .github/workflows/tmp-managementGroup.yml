@@ -82,6 +82,7 @@ jobs:
               --template-file './managementGroups/bicep-main/policies.bicep' \
               --parameters ${{ inputs.policyParameters }} \
               --parameters environment=${{ inputs.environment }} \
+              --parameters location=${{ inputs.location }} \
               --parameters policyIdentityResourceId=${{ inputs.policyIdentityResourceId }} \
               --deny-settings-mode None \
               --delete-all true \
