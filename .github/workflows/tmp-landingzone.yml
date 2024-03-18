@@ -35,7 +35,7 @@ jobs:
           allow-no-subscriptions: true
           enable-AzPSSession: true
 
-      - name: outputs
+      - name: prepareDeployment
         id: outputs
         uses: azure/powershell@v1
         with:
@@ -63,8 +63,8 @@ jobs:
         with:
             inlineScript: |
               az account subscription rename  \
-                --id ${{ steps.outputs.outputs.subscriptionId }} \
-                --name ${{ steps.outputs.outputs.subscriptionName }}
+                --id ${{ steps.prepareDeployment.outputs.subscriptionId }} \
+                --name ${{ steps.prepareDeployment.outputs.subscriptionName }}
               
       - name: landing zone
         uses: azure/powershell@v1
