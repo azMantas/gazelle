@@ -1,6 +1,10 @@
 name: lz-paltform-management-tst
 
 on:
+  push:
+    paths:
+      - './landingzones/parameters/platform-management-tst.json'
+
   workflow_dispatch:
 
 permissions:
