@@ -35,8 +35,8 @@ jobs:
           allow-no-subscriptions: true
           enable-AzPSSession: true
 
-      - name: prepareDeployment
-        id: outputs
+      - name: prepare Deployment
+        id: prepare
         uses: azure/powershell@v1
         with:
             azPSVersion: 'latest'
@@ -44,7 +44,7 @@ jobs:
               $TemplateFileText = [System.IO.File]::ReadAllText('${{ inputs.parameterFile }}')
               $params = ConvertFrom-Json $TemplateFileText -AsHashtable
               $deploymentParams = @{
-                name = "outputs"
+                name = "outputsFromBicep"
                 Location = "westeurope"
                 ManagementGroupId = "${{ format('{0}-{1}', inputs.topLevelManagementGroupName, inputs.environment) }}"
                 TemplateFile = "./landingzones/bicep-main/outputs.bicep"
@@ -63,8 +63,8 @@ jobs:
         with:
             inlineScript: |
               az account subscription rename  \
-                --id ${{ steps.prepareDeployment.outputs.subscriptionId }} \
-                --name ${{ steps.prepareDeployment.outputs.subscriptionName }}
+                --id ${{ steps.prepare.outputsFromBicep.subscriptionId }} \
+                --name ${{ steps.prepare.outputsFromBicep.subscriptionName }}
               
       - name: landing zone
         uses: azure/powershell@v1
