@@ -6,6 +6,14 @@ var rbacMapping = loadJsonContent('rbacMapping.json')
 var customRoles = loadJsonContent('customRoles.json')
 
 param rbac = {
+  TenantRoot: [
+    {
+      roleDefinitionId: rbacMapping.Reader
+      principalId: [
+        '40e39f8d-f0c6-4c45-a1f3-69387c5dcd99'
+      ]
+    }
+  ]
   cis: [
     {
       roleDefinitionId: rbacMapping.Reader
