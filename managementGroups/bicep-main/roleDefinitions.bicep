@@ -20,7 +20,7 @@ module roleDefinitionsNested '../bicep-base/roleDefinitions.bicep' = [
   for (item, i) in items(customRoles): {
     scope: managementGroup('${topLevelManagementGroupName}-${environment}')
     params: {
-      roleName: item.value.displayName
+      roleName: item.key
       roleDescription: item.value.description
       permissions: item.value.permissions
       roleDisplayName: item.value.displayName
