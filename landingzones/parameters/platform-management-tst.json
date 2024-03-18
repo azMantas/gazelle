@@ -8,7 +8,7 @@
     },
     "identity": {},
     "cost": {
-        "budget": 110
+        "budget": 100
     },
     "policies": {
         "tags": {
