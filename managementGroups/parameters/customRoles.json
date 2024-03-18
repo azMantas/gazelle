@@ -13,7 +13,7 @@
     },
     "clickOps": {
         "displayName": "clickOps specialists",
-        "description": "testing custom role assignments.",
+        "description": "testing custom role assignments",
         "permissions": [
             {
                 "actions": [
