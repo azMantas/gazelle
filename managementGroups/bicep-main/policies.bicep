@@ -6,6 +6,7 @@ param definitions array
 param setDefinitions array
 param policyAssignments array
 param environment string
+param location string
 param policyIdentityResourceId string = ''
 
 param utc string = utcNow()
@@ -34,7 +35,7 @@ module setDefinitionDeployment '../bicep-base/policySetDefinitions.bicep' = [
   }
 ]
 
-module assignmentDeployment '../bicep-nested/policyAssifnment-loop.bicep' = [
+module assignmentDeployment '../bicep-nested/policyAssignment-loop.bicep' = [
   for item in policyAssignments: {
     dependsOn: setDefinitionDeployment
     name: 'asiignment-${item.policyName}-${uniqueValue}'
@@ -42,6 +43,7 @@ module assignmentDeployment '../bicep-nested/policyAssifnment-loop.bicep' = [
       policies: item
       environment: environment
       policyIdentityResourceId: policyIdentityResourceId
+      location: location
     }
   }
 ]
