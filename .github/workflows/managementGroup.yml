@@ -35,7 +35,7 @@ jobs:
   tst:
     uses: ./.github/workflows/tmp-managementGroup.yml
     needs: changes
-    if: ${{ needs.changes.outputs.repo == 'true' }}
+    if: ${{ needs.changes.outputs.repo == 'true' }} || github.event_name == 'workflow_dispatch'
     with:
       topLevelManagementGroupName: gazelle
       location: francecentral
