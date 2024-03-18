@@ -58,13 +58,14 @@ jobs:
                   Write-Host "::set-output name=$key::$value"
               }
     
-      - name: deploy management groups
+      - name: rename subscription
         uses: azure/cli@v1
         with:
             inlineScript: |
-              az account subscription rename --id 84e64f94-714d-4c07-9f03-f07af8380b36 --name rename
+              az account subscription rename  \
+                --id ${{ steps.outputs.outputs.subscriptionId }} \
+                --name ${{ steps.outputs.outputs.subscriptionName }}
               
-
       - name: landing zone
         uses: azure/powershell@v1
         with:

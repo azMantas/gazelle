@@ -1,6 +1,6 @@
 {
     "basic": {
-        "labName": "management",
+        "solution": "management",
         "environment": "prod",
         "location": "francecentral",
         "subscriptionId": "84e64f94-714d-4c07-9f03-f07af8380b36",
