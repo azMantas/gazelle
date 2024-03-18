@@ -23,9 +23,9 @@ on:
         rbacParameters:
             required: true
             type: string
-        customRoleParameters:
-            default: ./managementGroups/parameters/customRoles.bicepparam
-            type: string
+        # customRoleParameters:
+        #     default: ./managementGroups/parameters/customRoles.bicepparam
+        #     type: string
               
 
 jobs:
@@ -66,8 +66,6 @@ jobs:
               --location ${{ inputs.location }} \
               --management-group-id ${{ format('{0}-{1}', inputs.topLevelManagementGroupName, inputs.environment) }} \
               --template-file './managementGroups/bicep-main/roleDefinitions.bicep' \
-              --parameters ${{ inputs.customRoleParameters }} \
-              --parameters topLevelManagementGroupName=${{ inputs.topLevelManagementGroupName }} \
               --parameters environment=${{ inputs.environment }} \
               --deny-settings-mode None \
               --delete-all true \
@@ -84,6 +82,7 @@ jobs:
               --template-file './managementGroups/bicep-main/policies.bicep' \
               --parameters ${{ inputs.policyParameters }} \
               --parameters environment=${{ inputs.environment }} \
+              --parameters location=${{ inputs.location }} \
               --parameters policyIdentityResourceId=${{ inputs.policyIdentityResourceId }} \
               --deny-settings-mode None \
               --delete-all true \

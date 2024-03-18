@@ -1,7 +1,8 @@
 targetScope = 'managementGroup'
 
 param policies object
-param environment string
+param environment string = ''
+param location string = ''
 param policyIdentityResourceId string
 
 var formatPolicies = [for item in items(policies.scope):{
@@ -14,14 +15,14 @@ var formatPolicies = [for item in items(policies.scope):{
 }]
 
 
-module assginmentNested '../bicep-base/policyAssignments.bicep' = [for item in formatPolicies: {
+module assignmentNested '../bicep-base/policyAssignments.bicep' = [for item in formatPolicies: {
   scope: managementGroup('${item.scope}-${environment}')
   params: {
     name: item.name
-    location: 'westeurope'
     definitionId: item.id
     displayName: item.display
     parameters: item.param
     policyIdentityResourceId: policyIdentityResourceId
+    location: location
   }
 }]

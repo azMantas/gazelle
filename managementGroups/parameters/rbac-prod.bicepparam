@@ -3,6 +3,8 @@ using '../bicep-main/roleAssignments.bicep'
 param environment = ''
 
 var rbacMapping = loadJsonContent('rbacMapping.json')
+var customRoles = loadJsonContent('customRoles.json')
+
 
 param rbac = {
   cis: [
@@ -13,7 +15,7 @@ param rbac = {
       ]
     }
     {
-      roleDefinitionId: '/providers/Microsoft.Authorization/roleDefinitions/${guid('${'copyPaster'}${environment}')}'
+      roleDefinitionId: '/providers/Microsoft.Authorization/roleDefinitions/${guid('${customRoles.copyPaster.name}${environment}')}'
       principalId: [
         '40e39f8d-f0c6-4c45-a1f3-69387c5dcd99'
       ]
@@ -27,13 +29,13 @@ param rbac = {
       ]
     }
     {
-      roleDefinitionId: '/providers/Microsoft.Authorization/roleDefinitions/${guid('${'platformEngineers'}${environment}')}'
+      roleDefinitionId: '/providers/Microsoft.Authorization/roleDefinitions/${guid('${customRoles.platformEngineers.name}${environment}')}'
       principalId: [
         '40e39f8d-f0c6-4c45-a1f3-69387c5dcd99'
       ]
     }
     {
-      roleDefinitionId: '/providers/Microsoft.Authorization/roleDefinitions/${guid('${'clickOps'}${environment}')}'
+      roleDefinitionId: '/providers/Microsoft.Authorization/roleDefinitions/${guid('${customRoles.clickOps.name}${environment}')}'
       principalId: [
         '40e39f8d-f0c6-4c45-a1f3-69387c5dcd99'
       ]

@@ -2,6 +2,7 @@ using '../bicep-main/policies.bicep'
 
 param topLevelManagementGroupName = 'gazelle'
 param environment = ''
+param location = ''
 var topLevelMgId = '${'/providers/Microsoft.Management/managementGroups/'}${topLevelManagementGroupName}-${environment}'
 
 param definitions = [

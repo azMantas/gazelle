@@ -1,15 +1,18 @@
 targetScope = 'managementGroup'
 
-param topLevelManagementGroupName string
 param environment string
-param customRoles array
 
-module roleDefinitions '../bicep-nested/roleDefinitions-loop.bicep' = [
-  for item in customRoles: {
-    params: {
-      topLevelManagementGroupName: topLevelManagementGroupName
-      environment: environment
-      customRole: item
-    }
+var customRoles = loadJsonContent('../parameters/customRoles.json')
+
+resource roleDefinitions 'Microsoft.Authorization/roleDefinitions@2022-05-01-preview' = [
+  for item in items(customRoles): {
+  name: guid('${item.value.name}${environment}')
+  properties: {
+    roleName: '${item.value.displayName}-${environment}'
+    description: item.value.description
+    assignableScopes: [
+      managementGroup().id
+    ]
+    permissions: item.value.permissions
   }
-]
+}]
