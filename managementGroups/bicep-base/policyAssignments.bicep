@@ -1,7 +1,6 @@
 targetScope = 'managementGroup'
 
 param name string
-param location string
 param policyIdentityResourceId string
 param displayName string
 param enforcmentMode string = 'Default'
@@ -18,7 +17,6 @@ resource policyAssignment 'Microsoft.Authorization/policyAssignments@2023-04-01'
       '${policyIdentityResourceId}': {}
     }
   }
-  location: location
   properties: {
     displayName: displayName
     enforcementMode: enforcmentMode

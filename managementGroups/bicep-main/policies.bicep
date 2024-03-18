@@ -34,7 +34,7 @@ module setDefinitionDeployment '../bicep-base/policySetDefinitions.bicep' = [
   }
 ]
 
-module assignmentDeployment '../bicep-nested/policyAssifnment-loop.bicep' = [
+module assignmentDeployment '../bicep-nested/policyAssignment-loop.bicep' = [
   for item in policyAssignments: {
     dependsOn: setDefinitionDeployment
     name: 'asiignment-${item.policyName}-${uniqueValue}'
