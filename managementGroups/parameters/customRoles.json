@@ -6,7 +6,8 @@
         "permissions": [
             {
                 "actions": [
-                    "*/read"
+                    "*/read",
+                    "Microsoft.Resources/deploymentStacks/delete"
                 ],
                 "notActions": []
             }

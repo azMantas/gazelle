@@ -13,6 +13,11 @@ param rbac = {
       principalId: [
         entraId.AzurePlatformEngineers
         entraId.AzurePlatformReaders
+      ]
+    }
+    {
+      roleDefinitionId: rbacMapping.CostManagementReader
+      principalId: [
         entraId.CostReaders
       ]
     }
