@@ -4,7 +4,8 @@ on:
   push:
     paths:
       - 'landingzones/parameters/platform-management-prod.json'
-
+  
+  workflow_dispatch:
 
 permissions:
   id-token: write
@@ -15,7 +16,6 @@ jobs:
     uses: ./.github/workflows/tmp-landingzone.yml
     with:
       topLevelManagementGroupName: gazelle
-      environment: prod
       location: francecentral
       parameterFile: ./landingzones/parameters/platform-management-prod.json
     secrets: inherit
