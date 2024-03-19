@@ -3,7 +3,7 @@ name: lz-platform-management-prod
 on:
   push:
     paths:
-      - './landingzones/parameters/platform-management-prod.json'
+      - 'landingzones/parameters/platform-management-prod.json'
 
 
 permissions:
