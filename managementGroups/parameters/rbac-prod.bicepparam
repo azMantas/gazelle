@@ -2,15 +2,23 @@ using '../bicep-main/roleAssignments.bicep'
 
 param environment = ''
 
-var rbacMapping = loadJsonContent('rbacMapping.json')
+var rbacMapping = loadJsonContent('mappingRbac.json')
 var customRoles = loadJsonContent('customRoles.json')
+var entraId = loadJsonContent('mappingEntraId.json')
 
 param rbac = {
   TenantRoot: [
     {
       roleDefinitionId: rbacMapping.Reader
       principalId: [
-        '40e39f8d-f0c6-4c45-a1f3-69387c5dcd99'
+        entraId.AzurePlatformEngineers
+        entraId.AzurePlatformReaders
+      ]
+    }
+    {
+      roleDefinitionId: rbacMapping.CostManagementReader
+      principalId: [
+        entraId.CostReaders
       ]
     }
   ]
@@ -18,13 +26,13 @@ param rbac = {
     {
       roleDefinitionId: rbacMapping.Reader
       principalId: [
-        '40e39f8d-f0c6-4c45-a1f3-69387c5dcd99'
+        entraId.AzureLandingzoneReaders
       ]
     }
     {
-      roleDefinitionId: '/providers/Microsoft.Authorization/roleDefinitions/${guid('${customRoles.copyPaster.name}${environment}')}'
+      roleDefinitionId: '/providers/Microsoft.Authorization/roleDefinitions/${guid('${customRoles.platformEngineers.name}${environment}')}'
       principalId: [
-        '40e39f8d-f0c6-4c45-a1f3-69387c5dcd99'
+        entraId.AzurePlatformEngineers
       ]
     }
   ]
@@ -32,19 +40,21 @@ param rbac = {
     {
       roleDefinitionId: rbacMapping.Reader
       principalId: [
-        '40e39f8d-f0c6-4c45-a1f3-69387c5dcd99'
+        entraId.AzureLandingzoneReaders
       ]
     }
+    {
+      roleDefinitionId: rbacMapping.Contributor
+      principalId: [
+        entraId.AzurePlatformEngineers
+      ]
+    }
+  ]
+  platform: [
     {
       roleDefinitionId: '/providers/Microsoft.Authorization/roleDefinitions/${guid('${customRoles.platformEngineers.name}${environment}')}'
       principalId: [
-        '40e39f8d-f0c6-4c45-a1f3-69387c5dcd99'
-      ]
-    }
-    {
-      roleDefinitionId: '/providers/Microsoft.Authorization/roleDefinitions/${guid('${customRoles.clickOps.name}${environment}')}'
-      principalId: [
-        '40e39f8d-f0c6-4c45-a1f3-69387c5dcd99'
+        entraId.AzurePlatformEngineers
       ]
     }
   ]

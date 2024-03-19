@@ -6,33 +6,8 @@
         "permissions": [
             {
                 "actions": [
-                    "*/read"
-                ],
-                "notActions": []
-            }
-        ]
-    },
-    "clickOps": {
-        "name": "clickOps",
-        "displayName": "clickOps specialists",
-        "description": "testing custom role assignments",
-        "permissions": [
-            {
-                "actions": [
-                    "*/read"
-                ],
-                "notActions": []
-            }
-        ]
-    },
-    "copyPaster": {
-        "name": "copyPaster",
-        "displayName": "copy-paster master",
-        "description": "another custom role assignments",
-        "permissions": [
-            {
-                "actions": [
-                    "*/read"
+                    "*/read",
+                    "Microsoft.Resources/deploymentStacks/delete"
                 ],
                 "notActions": []
             }
