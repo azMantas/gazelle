@@ -2,35 +2,33 @@ using '../bicep-main/roleAssignments.bicep'
 
 param environment = ''
 
-var rbacMapping = loadJsonContent('rbacMapping.json')
+var rbacMapping = loadJsonContent('mappingRbac.json')
 var customRoles = loadJsonContent('customRoles.json')
+var entraId = loadJsonContent('mappingEntraId.json')
 
 param rbac = {
   cis: [
     {
-      roleDefinitionId: rbacMapping.Reader
+      roleDefinitionId: rbacMapping.Contributor
       principalId: [
-        '40e39f8d-f0c6-4c45-a1f3-69387c5dcd99'
-      ]
-    }
-    {
-      roleDefinitionId: '/providers/Microsoft.Authorization/roleDefinitions/${guid('${customRoles.copyPaster.name}${environment}')}'
-      principalId: [
-        '40e39f8d-f0c6-4c45-a1f3-69387c5dcd99'
+        entraId.AzurePlatformEngineers
       ]
     }
   ]
   playground: [
     {
-      roleDefinitionId: '/providers/Microsoft.Authorization/roleDefinitions/${guid('${customRoles.platformEngineers.name}${environment}')}'
+      roleDefinitionId: rbacMapping.Contributor
       principalId: [
-        '40e39f8d-f0c6-4c45-a1f3-69387c5dcd99'
+        entraId.AzurePlatformEngineers
       ]
     }
+  ]
+  platform: [
     {
-      roleDefinitionId: '/providers/Microsoft.Authorization/roleDefinitions/${guid('${customRoles.clickOps.name}${environment}')}'
+      roleDefinitionId: '/providers/Microsoft.Authorization/roleDefinitions/${guid('${customRoles.platformEngineers.name}${environment}')}'
       principalId: [
-        '40e39f8d-f0c6-4c45-a1f3-69387c5dcd99'
+        entraId.AzurePlatformEngineers
+        entraId.AzurePlatformReaders
       ]
     }
   ]
