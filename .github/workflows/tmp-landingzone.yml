@@ -6,8 +6,9 @@ on:
         topLevelManagementGroupName:
             required: true
             type: string
-        environment:
-            required: true
+        githubEnvironment:
+            required: false
+            default: 'prod'
             type: string
         location:
             required: true
@@ -22,7 +23,7 @@ on:
 jobs:
   landingzone:
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
+    environment: ${{ inputs.githubEnvironment }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -46,7 +47,7 @@ jobs:
               $deploymentParams = @{
                 name = "outputsFromBicep"
                 Location = "westeurope"
-                ManagementGroupId = "${{ format('{0}-{1}', inputs.topLevelManagementGroupName, inputs.environment) }}"
+                ManagementGroupId = "${{ format('{0}-{1}', inputs.topLevelManagementGroupName, inputs.githubEnvironment) }}"
                 TemplateFile = "./landingzones/bicep-main/outputs.bicep"
                 Params = $params
               }
@@ -76,7 +77,7 @@ jobs:
               $deploymentParams = @{
                 name = "landingzone"
                 Location = "westeurope"
-                ManagementGroupId = "${{ format('{0}-{1}', inputs.topLevelManagementGroupName, inputs.environment) }}"
+                ManagementGroupId = "${{ format('{0}-{1}', inputs.topLevelManagementGroupName, inputs.githubEnvironment) }}"
                 TemplateFile = "./landingzones/bicep-main/base.bicep"
                 Params = $params
               }

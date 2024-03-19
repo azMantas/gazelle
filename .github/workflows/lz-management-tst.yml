@@ -3,7 +3,7 @@ name: lz-paltform-management-tst
 on:
   push:
     paths:
-      - '/landingzones/parameters/platform-management-tst.json'
+      - 'landingzones/parameters/platform-management-tst.json'
 
   workflow_dispatch:
 
@@ -16,7 +16,7 @@ jobs:
     uses: ./.github/workflows/tmp-landingzone.yml
     with:
       topLevelManagementGroupName: gazelle
-      environment: tst
+      githubEnvironment: tst
       location: francecentral
       parameterFile: ./landingzones/parameters/platform-management-tst.json
     secrets: inherit
