@@ -29,7 +29,7 @@ module rbac '../bicep-base/roleAssignments.bicep' = {
   name: 'rbac-subscriptionIdentity'
   params: {
     principalId: identity.outputs.principalId
-    rbacId: rbacMapping.Reader
+    rbacId: rbacMapping.Owner
   }
 }
 
