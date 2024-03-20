@@ -1,18 +1,15 @@
 targetScope = 'subscription'
 
-param project string 
+param project string
 param environment string
 param location string = 'westeurope'
 param githubOrganizationName string
 param githubRepoName string
 
-var name = 'id-${project}-${environment}'
 var rbacMapping = loadJsonContent('../../managementGroups/parameters/mappingRbac.json')
 
-
-
 resource identityResourceGroup 'Microsoft.Resources/resourceGroups@2023-07-01' = {
-  name: name
+  name: 'landingzone-${project}-${environment}'
   location: location
 }
 
@@ -25,7 +22,6 @@ module identity '../bicep-base/uami.bicep' = {
     location: location
     githubOrganizationName: githubOrganizationName
     githubRepoName: githubRepoName
-
   }
 }
 

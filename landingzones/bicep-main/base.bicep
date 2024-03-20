@@ -2,7 +2,6 @@ targetScope = 'managementGroup'
 
 param params object
 
-
 module identity '../bicep-nested/identity.bicep' = {
   name: 'landingzone-identity'
   scope: subscription(params.basic.subscriptionId)
