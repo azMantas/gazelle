@@ -23,7 +23,7 @@ param rbac = {
       ]
     }
   ]
-  platform: [
+  gazelle: [
     {
       roleDefinitionId: '/providers/Microsoft.Authorization/roleDefinitions/${guid('${customRoles.platformEngineers.name}${environment}')}'
       principalId: [
