@@ -9,7 +9,7 @@ resource managedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2023-
   name: 'id-${project}-${environment}'
   location: location
   resource credentials 'federatedIdentityCredentials' = {
-    name: 'owner'
+    name: 'landingzone-owner'
     properties: {
       audiences: [
         'api://AzureADTokenExchange'
