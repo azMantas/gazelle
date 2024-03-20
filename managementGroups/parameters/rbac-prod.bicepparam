@@ -1,5 +1,7 @@
 using '../bicep-main/roleAssignments.bicep'
 
+import * as func from '../bicep-base/functions.bicep'
+
 param environment = ''
 
 var rbacMapping = loadJsonContent('mappingRbac.json')
@@ -24,7 +26,7 @@ param rbac = {
   ]
   gazelle: [
     {
-      roleDefinitionId: '/providers/Microsoft.Authorization/roleDefinitions/${guid('${customRoles.platformEngineers.name}${environment}')}'
+      roleDefinitionId: func.customRoleDefinitionId(customRoles.platformEngineers.name, environment)
       principalId: [
         entraId.AzurePlatformEngineers
       ]
