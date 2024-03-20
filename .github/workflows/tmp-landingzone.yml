@@ -76,7 +76,7 @@ jobs:
               $params = ConvertFrom-Json $TemplateFileText -AsHashtable
               $deploymentParams = @{
                 name = "landingzone"
-                Location = "westeurope"
+                Location = ${{ inputs.location }}
                 ManagementGroupId = "${{ format('{0}-{1}', inputs.topLevelManagementGroupName, inputs.githubEnvironment) }}"
                 TemplateFile = "./landingzones/bicep-main/base.bicep"
                 Params = $params

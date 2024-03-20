@@ -1,13 +1,18 @@
 targetScope = 'subscription'
 
-param labName string 
+param project string 
 param environment string
 param location string = 'westeurope'
+param githubOrganizationName string
+param githubRepoName string
 
-var name = 'id-${labName}-${environment}'
+var name = 'id-${project}-${environment}'
+var rbacMapping = loadJsonContent('../../managementGroups/parameters/mappingRbac.json')
+
+
 
 resource identityResourceGroup 'Microsoft.Resources/resourceGroups@2023-07-01' = {
-  name: 'lz-identity-${environment}'
+  name: name
   location: location
 }
 
@@ -15,8 +20,12 @@ module identity '../bicep-base/uami.bicep' = {
   scope: identityResourceGroup
   name: 'subscriptionIdentity'
   params: {
+    project: project
+    environment: environment
     location: location
-    name: name
+    githubOrganizationName: githubOrganizationName
+    githubRepoName: githubRepoName
+
   }
 }
 
@@ -24,8 +33,11 @@ module rbac '../bicep-base/roleAssignments.bicep' = {
   name: 'rbac-subscriptionIdentity'
   params: {
     principalId: identity.outputs.principalId
-    rbacId: '/providers/Microsoft.Authorization/roleDefinitions/8e3af657-a8ff-443c-a75c-2fe8c4bcb635'
+    rbacId: rbacMapping.Reader
   }
 }
 
+output clientId string = identity.outputs.clientId
+output principalId string = identity.outputs.principalId
 output resourceId string = identity.outputs.resourceId
+output resourceName string = identity.outputs.resourceName
