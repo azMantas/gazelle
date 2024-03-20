@@ -62,7 +62,7 @@ jobs:
         with:
             inlineScript: |
               az stack mg create \
-              --name custom-roles \
+              --name custom-roles-${{ github.run_number }}  \
               --location ${{ inputs.location }} \
               --management-group-id ${{ format('{0}-{1}', inputs.topLevelManagementGroupName, inputs.environment) }} \
               --template-file './managementGroups/bicep-main/roleDefinitions.bicep' \
@@ -76,7 +76,7 @@ jobs:
         with:
             inlineScript: |
               az stack mg create \
-              --name policies \
+              --name policies-${{ github.run_number }}  \
               --location ${{ inputs.location }} \
               --management-group-id ${{ format('{0}-{1}', inputs.topLevelManagementGroupName, inputs.environment) }} \
               --template-file './managementGroups/bicep-main/policies.bicep' \
@@ -93,7 +93,7 @@ jobs:
         with:
             inlineScript: |
               az stack mg create \
-              --name RBAC \
+              --name RBAC-${{ github.run_number }}  \
               --location ${{ inputs.location }} \
               --management-group-id ${{ format('{0}-{1}', inputs.topLevelManagementGroupName, inputs.environment) }} \
               --template-file './managementGroups/bicep-main/roleAssignments.bicep' \

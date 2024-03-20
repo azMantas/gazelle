@@ -45,7 +45,7 @@ jobs:
               $TemplateFileText = [System.IO.File]::ReadAllText('${{ inputs.parameterFile }}')
               $params = ConvertFrom-Json $TemplateFileText -AsHashtable
               $deploymentParams = @{
-                name = "outputsFromBicep"
+                name = "${{ format('{0}-{1}', 'outputs', github.run_number) }}"
                 Location = "westeurope"
                 ManagementGroupId = "${{ format('{0}-{1}', inputs.topLevelManagementGroupName, inputs.githubEnvironment) }}"
                 TemplateFile = "./landingzones/bicep-main/outputs.bicep"
@@ -76,6 +76,7 @@ jobs:
               $params = ConvertFrom-Json $TemplateFileText -AsHashtable
               $deploymentParams = @{
                 name = "landingzone"
+                name = "${{ format('{0}-{1}', 'landingzone', github.run_number) }}"
                 Location = "${{ inputs.location }}"
                 ManagementGroupId = "${{ format('{0}-{1}', inputs.topLevelManagementGroupName, inputs.githubEnvironment) }}"
                 TemplateFile = "./landingzones/bicep-main/base.bicep"
