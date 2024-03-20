@@ -2,14 +2,15 @@ targetScope = 'managementGroup'
 
 param params object
 
-
 module identity '../bicep-nested/identity.bicep' = {
   name: 'landingzone-identity'
   scope: subscription(params.basic.subscriptionId)
   params: {
-    labName: 'lz-identity'
+    project: params.basic.project
     environment: params.basic.environment
     location: params.basic.location
+    githubOrganizationName: params.identity.githubOrganizationName
+    githubRepoName: params.identity.githubRepoName
   }
 }
 

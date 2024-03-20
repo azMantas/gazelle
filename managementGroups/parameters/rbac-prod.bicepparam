@@ -22,17 +22,19 @@ param rbac = {
       ]
     }
   ]
+  gazelle: [
+    {
+      roleDefinitionId: '/providers/Microsoft.Authorization/roleDefinitions/${guid('${customRoles.platformEngineers.name}${environment}')}'
+      principalId: [
+        entraId.AzurePlatformEngineers
+      ]
+    }
+  ]
   cis: [
     {
       roleDefinitionId: rbacMapping.Reader
       principalId: [
         entraId.AzureLandingzoneReaders
-      ]
-    }
-    {
-      roleDefinitionId: '/providers/Microsoft.Authorization/roleDefinitions/${guid('${customRoles.platformEngineers.name}${environment}')}'
-      principalId: [
-        entraId.AzurePlatformEngineers
       ]
     }
   ]
@@ -45,14 +47,6 @@ param rbac = {
     }
     {
       roleDefinitionId: rbacMapping.Contributor
-      principalId: [
-        entraId.AzurePlatformEngineers
-      ]
-    }
-  ]
-  platform: [
-    {
-      roleDefinitionId: '/providers/Microsoft.Authorization/roleDefinitions/${guid('${customRoles.platformEngineers.name}${environment}')}'
       principalId: [
         entraId.AzurePlatformEngineers
       ]

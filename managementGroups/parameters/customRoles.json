@@ -2,12 +2,13 @@
     "platformEngineers": {
         "name": "platformEngineers",
         "displayName": "platform engineers",
-        "description": "allows to perform manual tasks such as dismiss alerts, remediate policies and other operations that does not brake IaC principles",
+        "description": "allows to perform manual tasks such as dismiss alerts, remediate policies and other manual operations that does not brake IaC principles",
         "permissions": [
             {
                 "actions": [
                     "*/read",
-                    "Microsoft.Resources/deploymentStacks/delete"
+                    "Microsoft.Resources/deploymentStacks/delete",
+                    "Microsoft.Resources/deployments/delete"
                 ],
                 "notActions": []
             }
