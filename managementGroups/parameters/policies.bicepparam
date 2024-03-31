@@ -18,4 +18,5 @@ param setDefinitions = [
 
 param policyAssignments = [
   json(replace(loadTextContent('policyAssignments/storage.json'), '{{topLevel}}', topLevelMgId))
+  loadJsonContent('policyAssignments/CIS.json')
 ]

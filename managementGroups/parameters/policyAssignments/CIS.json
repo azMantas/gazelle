@@ -1,0 +1,23 @@
+{
+    "policyName": "CIS",
+    "policyDisplayName": "CIS Microsoft Azure Foundations Benchmark v2.0.0",
+    "policyDefinitionId": "/providers/Microsoft.Authorization/policySetDefinitions/06f19060-9e68-4070-92ca-f15cc126059e",
+    "scope": {
+        "CIS": {
+            "parameters": {
+                "maximumDaysToRotate-d8cf8476-a2ec-4916-896e-992351803c44": {
+                    "value": 90
+                }
+            },
+            "enforcementMode": "Default"
+        },
+        "platform": {
+            "parameters": {
+                "maximumDaysToRotate-d8cf8476-a2ec-4916-896e-992351803c44": {
+                    "value": 90
+                }
+            },
+            "enforcementMode": "Default"
+        }
+    }
+}
