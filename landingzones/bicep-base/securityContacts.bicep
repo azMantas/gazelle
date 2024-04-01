@@ -9,12 +9,12 @@ resource notifications 'Microsoft.Security/securityContacts@2020-01-01-preview' 
        minimalSeverity: 'High'
        state: 'On'
     }
-    notificationsByRole: {
-      roles: [
-        'Owner'
-        'Contributor'
-      ]
-    }
+    // notificationsByRole: {
+    //   roles: [
+    //     'Owner'
+    //     'Contributor'
+    //   ]
+    // }
     emails: secOpsMail
   }
 }
