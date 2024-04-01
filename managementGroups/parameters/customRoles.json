@@ -9,7 +9,8 @@
                     "*/read",
                     "Microsoft.Resources/deploymentStacks/delete",
                     "Microsoft.Resources/deployments/delete",
-                    "Microsoft.Resources/deployments/exportTemplate/action"
+                    "Microsoft.Resources/deployments/exportTemplate/action",
+                    "Microsoft.Policyinsights/remediations/write"     
                 ],
                 "notActions": []
             }
