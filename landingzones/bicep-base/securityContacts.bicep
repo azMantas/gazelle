@@ -4,7 +4,7 @@ resource notifications 'Microsoft.Security/securityContacts@2020-01-01-preview' 
   name: 'default'
   properties: {
     alertNotifications: {
-       minimalSeverity: 'High'
+       minimalSeverity: 'Medium'
        state: 'On'
     }
     notificationsByRole: {
