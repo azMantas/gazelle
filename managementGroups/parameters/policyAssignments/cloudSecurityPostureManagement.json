@@ -1,0 +1,15 @@
+{
+    "policyName": "defenderCSPM",
+    "policyDisplayName": "Microsoft Defender for Cloud plans",
+    "policyDefinitionId": "/providers/Microsoft.Authorization/policySetDefinitions/f08c57cd-dbd6-49a4-a85e-9ae77ac959b0",
+    "scope": {
+        "CIS": {
+            "parameters": {},
+            "enforcementMode": "Default"
+        },
+        "platform": {
+            "parameters": {},
+            "enforcementMode": "Default"
+        }
+    }
+}
