@@ -8,6 +8,7 @@ resource notifications 'Microsoft.Security/securityContacts@2020-01-01-preview' 
        state: 'On'
     }
     notificationsByRole: {
+      state: 'On'
       roles: [
         'Owner'
       ]
