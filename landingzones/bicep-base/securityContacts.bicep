@@ -1,5 +1,8 @@
 targetScope = 'subscription'
 
+param secOpsEmail string = 'secOps@gazelle.cloud'
+
+
 resource notifications 'Microsoft.Security/securityContacts@2020-01-01-preview' = {
   name: 'default'
   properties: {
@@ -14,5 +17,6 @@ resource notifications 'Microsoft.Security/securityContacts@2020-01-01-preview' 
         'Contributor'
       ]
     }
+    emails: secOpsEmail
   }
 }
