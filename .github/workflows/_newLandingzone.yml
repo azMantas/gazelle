@@ -27,9 +27,9 @@ on:
       engineer:
         description: 'project engineer email'
         required: true
-      sponsor:
-        description: 'who is paying for this project'
-        required: true
+    #   sponsor:
+    #     description: 'who is paying for this project'
+    #     required: true
       managementGroupName:
         description: 'management group name where the landinzones will be deployed'
         required: true
