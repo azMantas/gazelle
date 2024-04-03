@@ -1,0 +1,81 @@
+name: new landingzone
+
+on:
+  workflow_dispatch:
+    inputs:
+      project:
+        description: 'Project Name'
+        required: true
+      environment:
+        description: 'environment'
+        required: true
+      location:
+        description: 'landingzone location'
+        required: true
+      subscriptionId:
+        description: 'emptu subscription id'
+        required: true
+      budget:
+        description: 'Budget'
+        required: true
+      repo:
+        description: 'Repository Name'
+        required: true
+      owner:
+        description: 'project owner email'
+        required: true
+      engineer:
+        description: 'project engineer email'
+        required: true
+      sponsor:
+        description: 'who is paying for this project'
+        required: true
+      managementGroupName:
+        description: 'management group name where the landinzones will be deployed'
+        required: true
+      environmentType:
+        description: 'environment type'
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Create JSON file
+      run: |
+        echo '{
+          "project": "'"$INPUT_PROJECT"'",
+          "environment": "'"$INPUT_ENVIRONMENT"'",
+          "location": "'"$INPUT_LOCATION"'",
+          "subscriptionId": "'"$INPUT_SUBSCRIPTIONID"'",
+          "budget": '"$INPUT_BUDGET"',
+          "repo": "'"$INPUT_REPO"'",
+          "owner": "'"$INPUT_OWNER"'",
+          "engineer": "'"$INPUT_ENGINEER"'",
+          "sponsor": "'"$INPUT_SPONSOR"'",
+          "managementGroupName": "'"$INPUT_MANAGEMENTGROUPNAME"'",
+          "environmentType": "'"$INPUT_ENVIRONMENTTYPE"'"
+        }' > lzparams.json
+      env:
+        INPUT_PROJECT: ${{ github.event.inputs.project }}
+        INPUT_ENVIRONMENT: ${{ github.event.inputs.environment }}
+        INPUT_LOCATION: ${{ github.event.inputs.location }}
+        INPUT_SUBSCRIPTIONID: ${{ github.event.inputs.subscriptionId }}
+        INPUT_BUDGET: ${{ github.event.inputs.budget }}
+        INPUT_REPO: ${{ github.event.inputs.repo }}
+        INPUT_OWNER: ${{ github.event.inputs.owner }}
+        INPUT_ENGINEER: ${{ github.event.inputs.engineer }}
+        INPUT_SPONSOR: ${{ github.event.inputs.sponsor }}
+
+    - name: Commit and push
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add lzparams.json
+        git commit -m "Add lzparams.json file"
+        git push   
