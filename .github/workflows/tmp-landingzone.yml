@@ -101,7 +101,6 @@ jobs:
         env:
           GH_TOKEN: ${{ steps.github-token.outputs.token }}
         run: |
-            # gh secret list -R azMantas/gazelle
             gh secret set ${{ steps.fromBicep.outputs.project }} \
               -b ${{ steps.landingzone.outputs.clientId }} \
               -R azMantas/gazelle --env tst

@@ -14,7 +14,7 @@ permissions:
 jobs:
     platformManagement:
       runs-on: ubuntu-latest
-      environment: ${{ inputs.environment }}
+      environment: tst
       steps:
         - name: Checkout
           uses: actions/checkout@v4
@@ -22,7 +22,7 @@ jobs:
         - name: Azure login
           uses: azure/login@v1
           with:
-            client-id: ${{ secrets.PLATFORM_IDENTITY_CLIENT_ID}}
+            client-id: ${{ secrets.MANAGEMENT}}
             tenant-id: ${{ secrets.TENANT_ID }}
             allow-no-subscriptions: true
             enable-AzPSSession: false
