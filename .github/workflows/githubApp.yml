@@ -14,7 +14,9 @@ jobs:
             private-key: ${{ secrets.GIT_APP }}
   
         - name: Use the token
+          env:
+            GH_TOKEN: ${{ steps.generate-token.outputs.token }}
           run: |
-            gh auth login --with-token ${{ steps.generate-token.outputs.token }}
+            # gh auth login --with-token $GH_TOKEN
             gh secret list
             # gh secret set TEST -b "Hello world!"
