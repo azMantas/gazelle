@@ -1,4 +1,3 @@
-
 param queries object = {
   customRoles: {
     query: 'hello azure'
