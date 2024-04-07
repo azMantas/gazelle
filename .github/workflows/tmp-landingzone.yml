@@ -75,6 +75,7 @@ jobs:
                 --name ${{ steps.fromBicep.outputs.subscriptionName }}
               
       - name: landing zone
+        id: landingzone
         uses: azure/powershell@v1
         with:
             azPSVersion: 'latest'
@@ -96,9 +97,11 @@ jobs:
                 Write-Host "::set-output name=$key::$value"
               }
 
-      # - name: Use the token
-      #   env:
-      #     GH_TOKEN: ${{ steps.github-token.outputs.token }}
-      #   run: |
-      #       # gh secret list -R azMantas/gazelle
-      #       gh secret set TEST_ENV -b "Hello world!" -R azMantas/gazelle --env tst
+      - name: set env variables
+        env:
+          GH_TOKEN: ${{ steps.github-token.outputs.token }}
+        run: |
+            # gh secret list -R azMantas/gazelle
+            gh secret set ${{ steps.fromBicep.outputs.subscriptionName }} \
+              -b ${{ steps.landingzone.outputs.clientId }} \
+              -R azMantas/gazelle --env tst

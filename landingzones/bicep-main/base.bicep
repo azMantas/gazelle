@@ -57,3 +57,5 @@ module tagsOnResources '../bicep-base/policyAssignment.bicep' = [for item in ite
 module securityContacts '../bicep-base/securityContacts.bicep' = {
   scope: subscription(params.basic.subscriptionId)
 }
+
+output clientId string = identity.outputs.clientId
