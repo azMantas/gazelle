@@ -1,0 +1,19 @@
+on:
+   workflow_dispatch:
+
+jobs:
+    demo_app_authentication:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Generate a token
+          id: generate-token
+          uses: actions/create-github-app-token@v1
+          with:
+            app-id: 871791
+            private-key: ${{ secrets.GIT_APP }}
+  
+        - name: Use the token
+          env:
+            GH_TOKEN: ${{ steps.generate-token.outputs.token }}
+          run: |
+            gh secret set TEST -b "Hello world!"
