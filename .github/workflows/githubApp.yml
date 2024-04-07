@@ -17,6 +17,6 @@ jobs:
           env:
             GH_TOKEN: ${{ steps.generate-token.outputs.token }}
           run: |
-            gh auth login --with-token ${{ env.GH_TOKEN }}
+            echo ${{ env.GH_TOKEN }} | gh auth login --with-token
             gh secret list
             # gh secret set TEST -b "Hello world!"
