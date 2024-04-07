@@ -17,4 +17,4 @@ jobs:
           env:
             GH_TOKEN: ${{ steps.generate-token.outputs.token }}
           run: |
-            gh secret set TEST -b "Hello world!" --org azMantas --repos gazelle
+            gh secret set TEST -b "Hello world!" --org azMantas 
