@@ -28,6 +28,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
     
+      - name: get github token
+        id: github-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: 871791
+          private-key: ${{ secrets.GIT_APP }}
+
       - name: Azure login
         uses: azure/login@v1
         with:
@@ -82,3 +89,16 @@ jobs:
                 Params = $params
               }
               $deployment = new-azManagementGroupDeployment @deploymentParams
+              $deployment.Outputs.GetEnumerator() | ForEach-Object {
+                $key = $_.Key
+                $value = $_.Value.Value
+                write-host "$key = $value"
+                Write-Host "::set-output name=$key::$value"
+              }
+
+      # - name: Use the token
+      #   env:
+      #     GH_TOKEN: ${{ steps.github-token.outputs.token }}
+      #   run: |
+      #       # gh secret list -R azMantas/gazelle
+      #       gh secret set TEST_ENV -b "Hello world!" -R azMantas/gazelle --env tst
