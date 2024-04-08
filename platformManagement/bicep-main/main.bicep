@@ -1,7 +1,7 @@
 targetScope = 'subscription'
 
 param location string = 'francecentral'
-param environment string
+param environment string = 'tst'
 
 var queries = loadJsonContent('../parameters/graphQueries.json')
 

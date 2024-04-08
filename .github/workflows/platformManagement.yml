@@ -15,7 +15,6 @@ jobs:
   platform-management:
     uses: ./.github/workflows/tmp-subscription.yml
     with:
-      environment: tst
       location: francecentral
       templateFile: platformManagement/bicep-main/main.bicep
     secrets: inherit

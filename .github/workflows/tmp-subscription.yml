@@ -3,9 +3,6 @@ name: platformManagement-tst
 on:
   workflow_call:
     inputs:
-        environment:
-            required: true
-            type: string
         location:
             required: true
             default: 'southfrance'
@@ -40,7 +37,6 @@ jobs:
                   name              = "platform-management"
                   templateFile      = "${{ inputs.templateFile }}"
                   location          = "${{ inputs.location }}"
-                  environment       = "${{ inputs.environment }}"
                   denysettingsMode  = "None"
                   deleteAll         = $true
                   force             = $true
