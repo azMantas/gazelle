@@ -1,10 +1,10 @@
-name: platformManagement-tst
+name: paltform-management-tst
 
 on:
   push:
     paths:
       - 'platformManagement/**'
-  
+
   workflow_dispatch:
 
 permissions:
@@ -12,17 +12,11 @@ permissions:
   contents: read
 
 jobs:
-    platformManagement:
-      runs-on: ubuntu-latest
+  landingzone:
+    uses: ./.github/workflows/tmp-subscription.yml
+    with:
+      clientId: management
       environment: tst
-      steps:
-        - name: Checkout
-          uses: actions/checkout@v4
-      
-        - name: Azure login
-          uses: azure/login@v1
-          with:
-            client-id: ${{ secrets.MANAGEMENT}}
-            tenant-id: ${{ secrets.TENANT_ID }}
-            allow-no-subscriptions: true
-            enable-AzPSSession: false
+      location: francecentral
+      templateFile: platformManagement/bicep-main/main.bicep
+    secrets: inherit

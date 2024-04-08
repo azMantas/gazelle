@@ -1,0 +1,52 @@
+name: platformManagement-tst
+
+on:
+  workflow_call:
+    inputs:
+        clientId:
+            required: true
+            type: string
+        environment:
+            required: true
+            type: string
+        location:
+            required: true
+            default: 'southfrance'
+            type: string
+        templateFile:
+            required: true
+            type: string
+        parameterFile:
+            required: false
+            type: string
+        
+
+jobs:
+    platformManagement:
+      runs-on: ubuntu-latest
+      environment: ${{ inputs.environment }}
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+      
+        - name: Azure login
+          uses: azure/login@v1
+          with:
+            client-id: ${{ secrets.clientId }}
+            tenant-id: ${{ secrets.TENANT_ID }}
+            allow-no-subscriptions: true
+            enable-AzPSSession: true
+      
+        - name: platform management
+          uses: azure/powershell@v1
+          with:
+              azPSVersion: 'latest'
+              inlineScript: |
+                $deploymentParams = @{
+                  name              = "platform-management"
+                  Location          = "${{ inputs.location }}"
+                  denysettingsMode  = "None"
+                  delteAll          = $true
+                }
+                $deployment = New-AzSubscriptionDeploymentStack @deploymentParams
+  
