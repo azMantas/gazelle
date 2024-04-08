@@ -16,10 +16,7 @@ on:
         templateFile:
             required: true
             type: string
-        parameterFile:
-            required: false
-            type: string
-        
+       
 
 jobs:
     platformManagement:
@@ -37,16 +34,17 @@ jobs:
             allow-no-subscriptions: true
             enable-AzPSSession: true
       
-        - name: platform management
+        - name: main bicep deployment
           uses: azure/powershell@v1
           with:
               azPSVersion: 'latest'
               inlineScript: |
                 $deploymentParams = @{
                   name              = "platform-management"
+                  templateFile      = "${{ inputs.templateFile }}"
                   Location          = "${{ inputs.location }}"
                   denysettingsMode  = "None"
-                  deleteAll          = $true
+                  deleteAll         = $true
                 }
                 $deployment = New-AzSubscriptionDeploymentStack @deploymentParams
   
