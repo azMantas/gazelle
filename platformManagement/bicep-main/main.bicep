@@ -10,11 +10,13 @@ resource graphQueriesRG 'Microsoft.Resources/resourceGroups@2023-07-01' = {
   location: location
 }
 
-module graphQueries 'br/public:avm/res/resource-graph/query:0.1.1' = [for item in items(queries): {
-  name: item.key
-  scope: graphQueriesRG
-  params: {
-    name: '${item.key}-${environment}'
-    query: item.value.query
+module graphQueries 'br/public:avm/res/resource-graph/query:0.1.1' = [
+  for item in items(queries): {
+    name: item.key
+    scope: graphQueriesRG
+    params: {
+      name: '${item.key}-${environment}'
+      query: item.value.query
+    }
   }
-}]
+]
