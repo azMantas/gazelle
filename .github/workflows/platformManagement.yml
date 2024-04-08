@@ -12,7 +12,7 @@ permissions:
   contents: read
 
 jobs:
-  landingzone:
+  platform-management:
     uses: ./.github/workflows/tmp-subscription.yml
     with:
       clientId: management

@@ -32,7 +32,7 @@ jobs:
         - name: Azure login
           uses: azure/login@v1
           with:
-            client-id: ${{ secrets.clientId }}
+            client-id: ${{ secrets.management }}
             tenant-id: ${{ secrets.TENANT_ID }}
             allow-no-subscriptions: true
             enable-AzPSSession: true
