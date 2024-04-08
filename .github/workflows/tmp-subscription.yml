@@ -3,9 +3,6 @@ name: platformManagement-tst
 on:
   workflow_call:
     inputs:
-        clientId:
-            required: true
-            type: string
         environment:
             required: true
             type: string
@@ -42,7 +39,7 @@ jobs:
                 $deploymentParams = @{
                   name              = "platform-management"
                   templateFile      = "${{ inputs.templateFile }}"
-                  Location          = "${{ inputs.location }}"
+                  location          = "${{ inputs.location }}"
                   denysettingsMode  = "None"
                   deleteAll         = $true
                 }
