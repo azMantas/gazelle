@@ -1,5 +1,5 @@
 {
-    "customeRolev1": {
+    "customeRole": {
         "query": "authorizationresources\r\n| where type == 'microsoft.authorization/roledefinitions'\r\n| where properties.type != \"BuiltInRole\"\r\n| extend roleName = tostring(properties.roleName)\r\n| project id, roleName\r\n| join kind=innerunique (\r\n    authorizationresources\r\n    | where type == 'microsoft.authorization/roleassignments'\r\n    | extend roleDefinitionId = tostring(properties.roleDefinitionId)\r\n    | extend objectId = tostring(properties.principalId)\r\n    | extend scope = tostring(properties.scope)\r\n    )\r\n    on $left.id == $right.roleDefinitionId\r\n| project roleName, objectId, scope"
     }
 }

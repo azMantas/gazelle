@@ -42,6 +42,7 @@ jobs:
                   location          = "${{ inputs.location }}"
                   denysettingsMode  = "None"
                   deleteAll         = $true
+                  force             = $true
                 }
                 $deployment = New-AzSubscriptionDeploymentStack @deploymentParams
   
