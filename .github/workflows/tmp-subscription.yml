@@ -46,7 +46,7 @@ jobs:
                   name              = "platform-management"
                   Location          = "${{ inputs.location }}"
                   denysettingsMode  = "None"
-                  delteAll          = $true
+                  deleteAll          = $true
                 }
                 $deployment = New-AzSubscriptionDeploymentStack @deploymentParams
   

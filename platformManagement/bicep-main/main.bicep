@@ -3,6 +3,7 @@ targetScope = 'subscription'
 param location string
 param environment string
 
+
 var queries = loadJsonContent('../parameters/graphQueries.json')
 
 resource graphQueriesRG 'Microsoft.Resources/resourceGroups@2023-07-01' = {
