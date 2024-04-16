@@ -38,6 +38,8 @@ jobs:
 
       - name: Azure login
         uses: azure/login@v1
+        env:
+          GH_TOKEN: ${{ steps.github-token.outputs.token }}
         with:
           client-id: ${{ secrets.LZ_MGMT }}
           tenant-id: ${{ secrets.TENANT_ID }}
