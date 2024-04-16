@@ -34,73 +34,74 @@ jobs:
         with:
           app-id: 871791
           private-key: ${{ secrets.GIT_APP }}
+          repositories: "managementGroups,gazelle"
 
       - name: Azure login
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.PLATFORM_IDENTITY_CLIENT_ID}}
+          client-id: ${{ secrets.LZ_MGMT }}
           tenant-id: ${{ secrets.TENANT_ID }}
           allow-no-subscriptions: true
           enable-AzPSSession: true
 
-      - name: prepare Deployment
-        id: fromBicep
-        uses: azure/powershell@v1
-        with:
-            azPSVersion: 'latest'
-            inlineScript: |
-              $TemplateFileText = [System.IO.File]::ReadAllText('${{ inputs.parameterFile }}')
-              $params = ConvertFrom-Json $TemplateFileText -AsHashtable
-              $deploymentParams = @{
-                name = "outputsFromBicep"
-                Location = "westeurope"
-                ManagementGroupId = "${{ format('{0}-{1}', inputs.topLevelManagementGroupName, inputs.githubEnvironment) }}"
-                TemplateFile = "./landingzones/bicep-main/outputs.bicep"
-                Params = $params
-              }
-              $deployment = new-azManagementGroupDeployment @deploymentParams
-              $deployment.Outputs.GetEnumerator() | ForEach-Object {
-                  $key = $_.Key
-                  $value = $_.Value.Value
-                  write-host "$key = $value"
-                  Write-Host "::set-output name=$key::$value"
-              }
+      # - name: prepare Deployment
+      #   id: fromBicep
+      #   uses: azure/powershell@v1
+      #   with:
+      #       azPSVersion: 'latest'
+      #       inlineScript: |
+      #         $TemplateFileText = [System.IO.File]::ReadAllText('${{ inputs.parameterFile }}')
+      #         $params = ConvertFrom-Json $TemplateFileText -AsHashtable
+      #         $deploymentParams = @{
+      #           name = "outputsFromBicep"
+      #           Location = "westeurope"
+      #           ManagementGroupId = "${{ format('{0}-{1}', inputs.topLevelManagementGroupName, inputs.githubEnvironment) }}"
+      #           TemplateFile = "./landingzones/bicep-main/outputs.bicep"
+      #           Params = $params
+      #         }
+      #         $deployment = new-azManagementGroupDeployment @deploymentParams
+      #         $deployment.Outputs.GetEnumerator() | ForEach-Object {
+      #             $key = $_.Key
+      #             $value = $_.Value.Value
+      #             write-host "$key = $value"
+      #             Write-Host "::set-output name=$key::$value"
+      #         }
     
-      - name: rename subscription
-        uses: azure/cli@v1
-        with:
-            inlineScript: |
-              az account subscription rename  \
-                --id ${{ steps.fromBicep.outputs.subscriptionId }} \
-                --name ${{ steps.fromBicep.outputs.subscriptionName }}
+      # - name: rename subscription
+      #   uses: azure/cli@v1
+      #   with:
+      #       inlineScript: |
+      #         az account subscription rename  \
+      #           --id ${{ steps.fromBicep.outputs.subscriptionId }} \
+      #           --name ${{ steps.fromBicep.outputs.subscriptionName }}
               
-      - name: landing zone
-        id: landingzone
-        uses: azure/powershell@v1
-        with:
-            azPSVersion: 'latest'
-            inlineScript: |
-              $TemplateFileText = [System.IO.File]::ReadAllText('${{ inputs.parameterFile }}')
-              $params = ConvertFrom-Json $TemplateFileText -AsHashtable
-              $deploymentParams = @{
-                name = "landingzone"
-                Location = "${{ inputs.location }}"
-                ManagementGroupId = "${{ format('{0}-{1}', inputs.topLevelManagementGroupName, inputs.githubEnvironment) }}"
-                TemplateFile = "./landingzones/bicep-main/base.bicep"
-                Params = $params
-              }
-              $deployment = new-azManagementGroupDeployment @deploymentParams
-              $deployment.Outputs.GetEnumerator() | ForEach-Object {
-                $key = $_.Key
-                $value = $_.Value.Value
-                write-host "$key = $value"
-                Write-Host "::set-output name=$key::$value"
-              }
+      # - name: landing zone
+      #   id: landingzone
+      #   uses: azure/powershell@v1
+      #   with:
+      #       azPSVersion: 'latest'
+      #       inlineScript: |
+      #         $TemplateFileText = [System.IO.File]::ReadAllText('${{ inputs.parameterFile }}')
+      #         $params = ConvertFrom-Json $TemplateFileText -AsHashtable
+      #         $deploymentParams = @{
+      #           name = "landingzone"
+      #           Location = "${{ inputs.location }}"
+      #           ManagementGroupId = "${{ format('{0}-{1}', inputs.topLevelManagementGroupName, inputs.githubEnvironment) }}"
+      #           TemplateFile = "./landingzones/bicep-main/base.bicep"
+      #           Params = $params
+      #         }
+      #         $deployment = new-azManagementGroupDeployment @deploymentParams
+      #         $deployment.Outputs.GetEnumerator() | ForEach-Object {
+      #           $key = $_.Key
+      #           $value = $_.Value.Value
+      #           write-host "$key = $value"
+      #           Write-Host "::set-output name=$key::$value"
+      #         }
 
-      - name: set env variables
-        env:
-          GH_TOKEN: ${{ steps.github-token.outputs.token }}
-        run: |
-            gh secret set ${{ steps.fromBicep.outputs.project }} \
-              -b ${{ steps.landingzone.outputs.clientId }} \
-              -R azMantas/gazelle --env tst
+      # - name: set env variables
+      #   env:
+      #     GH_TOKEN: ${{ steps.github-token.outputs.token }}
+      #   run: |
+      #       gh secret set ${{ steps.fromBicep.outputs.project }} \
+      #         -b ${{ steps.landingzone.outputs.clientId }} \
+      #         -R azMantas/gazelle --env tst
